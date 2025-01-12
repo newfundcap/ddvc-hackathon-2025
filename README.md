@@ -3,6 +3,8 @@ Code for the Data Driven VC Hackathon 2025 in Paris
 
 # DEAL SOURCING AND SCREENING
 
+This project was built as part of the Data-Driven VC Hackathon organized by [Red River West](https://redriverwest.com) & [Bivwak! by BNP Paribas](https://bivwak.bnpparibas/)
+
 Used to organise unstructured data to structured data, which is then filtered for the purposes of being matched with specific funds. 
 
 ## Installation
