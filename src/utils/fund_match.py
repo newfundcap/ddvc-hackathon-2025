@@ -8,9 +8,6 @@ import prompts
 from dataclasses_config import OpenAIResponse
 import logging
 import requests
-import tkinter as tk
-from tkinter import filedialog
-from tkinter.messagebox import showinfo
 import prompts
 import json
 
