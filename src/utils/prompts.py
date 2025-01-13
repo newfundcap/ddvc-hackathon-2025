@@ -2,7 +2,6 @@ __all__ = [
     "fund_matching",
     "startup_text_extraction",
     "funds_text_extraction",
-    "open_api_spec",
 ]
 
 # we can change these to JSON arrays later
