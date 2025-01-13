@@ -22,3 +22,7 @@ Outputs:
 A JSON schema which includes:
 - a summary of the startup, containing information on the fund such as fund name, founders, a description on the fund, etc.
 - a ranked list of funds in descending order, from the highest score (highest match) to lowest score (lowest match), with justifications for the scores, along with the categorisation of that fund (e.g. Perfect Match, Likely Match, etc.)
+
+Example of output:
+```json
+```
