@@ -14,3 +14,4 @@ pydantic
 uvicorn
 uvicorn-worker
 gunicorn
+peopledatalabs

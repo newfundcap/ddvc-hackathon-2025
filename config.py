@@ -11,6 +11,7 @@ class Config:
     db_port: int
     api_port: int
     api_host: str
+    pdl_api_key: str
 
 
 config = Config(
@@ -21,4 +22,5 @@ config = Config(
     db_port=os.getenv("DB_PORT", 5432),
     api_port=os.getenv("PORT", 8033),
     api_host=os.getenv("HOST", "localhost"),
+    pdl_api_key=os.getenv("PDL_API_KEY", "not a key"),
 )

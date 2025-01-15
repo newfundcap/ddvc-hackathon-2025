@@ -65,8 +65,8 @@ class CompanyPeople(BaseModel):
         db_table = 'company_people'
 
     id = AutoField()
-    company = ForeignKeyField(Company, backref='company')
-    people = ForeignKeyField(People, backref='people')
+    company = ForeignKeyField(Company, backref='companies')
+    people = ForeignKeyField(People, backref='employees')
 
 
 class Filter(BaseModel):

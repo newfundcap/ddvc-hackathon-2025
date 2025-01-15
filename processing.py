@@ -1,8 +1,15 @@
+import harmonic_enrichment
+import pdl_enrichment
 from models import Company
 
 def enrich_company(company: Company):
-    print('Enriching stuff')
-    return company
+    print('Enriching stuff from harmonic')
+    company, team = harmonic_enrichment.enrich(company)
+    print('Enriching stuff from PDL')
+    for people in team:
+        print(f"Enriching for {people.first_name}")
+        enriched_people = pdl_enrichment.enrich(people, company)
+    return company, people
 
 def apply_filters(company: Company):
     print('Applying filters')
