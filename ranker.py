@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 from dotenv import find_dotenv
 
 import prompts
+from dataclasses_config import OpenAIResponse
 import logging
 import requests
 import prompts
@@ -50,7 +51,7 @@ def rank_company(company: Company, people: People):
         model = "gpt-4o",
         messages=[
             {"role": "developer",
-            "content": prompts.fund_matching + process_json("funds.json") + process_json("startup.json") + process_json("investor-preferences.json")},
+            "content": prompts.fund_matching + "\nStartup Information:\n" + company_details + "\nPeople Information:\n" + people_details + "\nRankers:\n" + rankers},
             {"role": "user",
             "content": "Generate an output as requested by the developer role."}
         ]
@@ -59,6 +60,14 @@ def rank_company(company: Company, people: People):
     generate_file("match-info.json", completion.choices[0].message.content.strip())
 
     print(completion.choices[0].message.content.strip())
+
+    startup_match_info = completion.choices[0].message.content.strip()
+
+    ranker_company = RankerCompany.select().where(RankerCompany.company.id == startup_match_info.get("startup-id")).get()
+    ranker_company.score = int(startup_match_info.get("score"))
+    ranker_company.category = startup_match_info.get("category")
+
+    ranker_company.save()
 
     prompt_tokens = completion.usage.prompt_tokens
     completion_tokens = completion.usage.completion_tokens
