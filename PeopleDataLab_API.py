@@ -9,7 +9,7 @@ from peopledatalabs import PDLPY
 
 # Create a client, specifying your API key
 CLIENT = PDLPY(
-    api_key="19def2a487c108856614ed041a9a670daa5e58cf29eafa4898908d401f26f53c",
+    api_key="",
 )
 
 # Extract startup names from the Harmonic AI response
