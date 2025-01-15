@@ -11,4 +11,5 @@ playhouse
 psycopg2-binary
 yoyo-migrations
 pydantic
+uvicorn
 gunicorn
