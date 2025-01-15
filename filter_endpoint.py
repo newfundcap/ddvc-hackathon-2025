@@ -13,6 +13,7 @@ router = APIRouter(
 
 @router.post("/")
 async def create_filter(filter_data: dict):
+    # TODO implement the correct endpoint
     try:
         filter_obj = Filter.create(**filter_data)
         return model_to_dict(filter_obj)

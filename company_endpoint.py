@@ -39,6 +39,7 @@ async def create_company(req: CreateCompanyRequest, background_tasks: Background
 
 @router.get("/")
 async def list_companies(sort_by: str = None, ranker_score: float = None):
+    # TODO write a correct list / search endpoint
     query = Company.select()
     if ranker_score:
         query = query.join(RankerCompany).where(RankerCompany.score == ranker_score)
