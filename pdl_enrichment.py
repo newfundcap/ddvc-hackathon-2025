@@ -2,7 +2,7 @@ import json
 from peopledatalabs import PDLPY
 
 from config import config
-from models import Company, People
+from models import Company, People, Education
 
 
 def enrich(people: People, company: Company):
@@ -47,70 +47,46 @@ def enrich(people: People, company: Company):
     person_table = []
     experience_table = []
     education_table = []
-
-    for person in data:
-        person_id = person["id"]
-
-        # Add person data
-        person_table.append({
-            "person_id": person_id,
-            "full_name": person["full_name"],
-            "sex": person["sex"],
-            "linkedin_url": person["linkedin_url"],
-            "facebook_url": person["facebook_url"],
-            "twitter_url": person["twitter_url"],
-            "github_url": person["github_url"],
-            "work_email": person["work_email"],
-            "personal_emails": person["personal_emails"],
-            "industry": person["industry"],
-            "job_title": person["job_title"],
-            "location_country": person["location_country"],
-            "linkedin_connections": person["linkedin_connections"],
-            "inferred_years_experience": person["inferred_years_experience"],
-            "summary": person["summary"],
-            "interests": person["interests"]
-        })
+    person_data = data[0] if len(data) > 0 else None
+    if person_data:
+        people.update(
+            linkedin = people.linkedin or person_data["linkedin_url"],
+            ...
+        )
 
         # Add experience data using provided ID
-        for exp in person["experience"]:
-            experience_table.append({
-                "experience_id": exp.get("company", {}).get("id", "unknown_id"),
-                "person_id": person_id,
-                "company_name": exp["company"]["name"],
-                "industry": exp["company"]["industry"],
-                "start_date": exp["start_date"],
-                "end_date": exp["end_date"],
-                "title": exp["title"]["name"],
-                "summary": exp["summary"]
-            })
+        for exp in person_data["experience"]:
+            Experience.create(
+                people = people,
+                ...
+            )
+            # experience_table.append({
+            #     "experience_id": exp.get("company", {}).get("id", "unknown_id"),
+            #     "person_id": person_id,
+            #     "company_name": exp["company"]["name"],
+            #     "industry": exp["company"]["industry"],
+            #     "start_date": exp["start_date"],
+            #     "end_date": exp["end_date"],
+            #     "title": exp["title"]["name"],
+            #     "summary": exp["summary"]
+            # })
 
         # Add education data using provided ID
-        for edu in person["education"]:
-            education_table.append({
-                "education_id": edu.get("school", {}).get("id", "unknown_id"),
-                "person_id": person_id,
-                "school_name": edu["school"]["name"],
-                "school_type": edu["school"]["type"],
-                "degrees": edu["degrees"],
-                "start_date": edu["start_date"],
-                "end_date": edu["end_date"],
-                "majors": edu["majors"],
-                "summary": edu["summary"]
-            })
-
-    df_deduplicated = df.drop_duplicates(subset=['linkedin_url'], keep='first') ## Delete Duplicates based on LinkedIn URL
-
-
-    # Convert to DataFrames
-    person_df = pd.DataFrame(person_table)
-    experience_df = pd.DataFrame(experience_table)
-    education_df = pd.DataFrame(education_table)
+        for edu in person_data["education"]:
+            Education.create(
+                people = people,
+                ...
+            )
+            # education_table.append({
+            #     "education_id": edu.get("school", {}).get("id", "unknown_id"),
+            #     "person_id": person_id,
+            #     "school_name": edu["school"]["name"],
+            #     "school_type": edu["school"]["type"],
+            #     "degrees": edu["degrees"],
+            #     "start_date": edu["start_date"],
+            #     "end_date": edu["end_date"],
+            #     "majors": edu["majors"],
+            #     "summary": edu["summary"]
+            # })
 
 
-    # In[111]:
-
-
-    experience_df
-
-
-    #

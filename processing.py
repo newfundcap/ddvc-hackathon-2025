@@ -5,6 +5,7 @@ from models import Company
 def enrich_company(company: Company):
     print('Enriching stuff from harmonic')
     company, team = harmonic_enrichment.enrich(company)
+
     print('Enriching stuff from PDL')
     for people in team:
         print(f"Enriching for {people.first_name}")
