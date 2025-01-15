@@ -10,7 +10,7 @@ Used to organise unstructured data to structured data, which is then filtered fo
 ## Installation
 
 ## Documentation
-This data includes items on a startup such as pitch decks, urls, and more. From this JSON array, the OpenAI API is called to aid with ranking an investment opportunity's score with various funds, representing the extent in which it matches with that fund.
+The following project This data includes items on a startup such as pitch decks, urls, data providers, and more. From this JSON array, the OpenAI API is called to aid with ranking an investment opportunity's score with various funds, representing the extent in which it matches with that fund.
 
 Inputs:
 - mandatory: a data schema in JSON format
