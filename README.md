@@ -8,21 +8,4 @@ This project was built as part of the Data-Driven VC Hackathon organized by [Red
 ## Installation
 
 ## Documentation
-The following project on startup sourcing receives inputs about startups from various sources, such as pitch decks, urls, data providers, and more. From this JSON array, the OpenAI API is called to aid with ranking an investment opportunity's score with various funds, representing the extent in which it matches with that fund.
-
-Inputs:
-- mandatory: a data schema in JSON format
-- optional: a company pitch deck in PDF format
-- optional: a URL
-- optional: a user input string (can be a text, random informations, etc.) at least one of the 3 optional inputs must be provided because these are the 3 potential data sources that will be exploited by the AI.
-
-Outputs: 
-A JSON schema which includes:
-- a summary of the startup, containing information on the fund such as fund name, founders, a description on the fund, etc.
-- a ranked list of funds in descending order, from the highest score (highest match) to lowest score (lowest match), with justifications for the scores, along with the categorisation of that fund (e.g. Perfect Match, Likely Match, etc.)
-
-Example of output:
-```json
-
-
-```
+The following project on startup sourcing receives inputs about opportunities from various sources, such as pitch decks, urls, data providers, and more, and outputs a filtered and ranked list of the startups in descending order. 
