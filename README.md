@@ -8,4 +8,4 @@ This project was built as part of the Data-Driven VC Hackathon organized by [Red
 ## Installation
 
 ## Documentation
-The following project on startup sourcing receives inputs about opportunities from various sources, such as pitch decks, urls, data providers, and more, and outputs a filtered and ranked list of the startups in descending order. 
+The following project on startup sourcing receives inputs about opportunities from various sources, such as pitch decks, urls, data providers, and more, and outputs a filtered and ranked list of the startups in descending order, based on how they match with particular funds of a company. 
