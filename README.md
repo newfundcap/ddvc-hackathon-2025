@@ -10,7 +10,7 @@ Used to organise unstructured data to structured data, which is then filtered fo
 ## Installation
 
 ## Documentation
-The project uses an existing API project called Smarty, which receives data from various forms and returns a JSON array. This data includes items on a startup such as pitch decks, urls, and more. From this JSON array, the OpenAI API is called to aid with ranking an investment opportunity's score with various funds, representing the extent in which it matches with that fund.
+This data includes items on a startup such as pitch decks, urls, and more. From this JSON array, the OpenAI API is called to aid with ranking an investment opportunity's score with various funds, representing the extent in which it matches with that fund.
 
 Inputs:
 - mandatory: a data schema in JSON format
@@ -25,4 +25,6 @@ A JSON schema which includes:
 
 Example of output:
 ```json
+
+
 ```
