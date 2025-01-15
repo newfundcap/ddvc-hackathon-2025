@@ -74,6 +74,7 @@ class FilterCompany(BaseModel):
 class Ranker(BaseModel):
     id = AutoField()
     name = CharField()
+    description = CharField() # summary of diff types of rankers, e.g. investment thesis or investor preferences
     created_at = DateTimeField(default=datetime.now)
     updated_at = DateTimeField(default=datetime.now)
 
@@ -82,6 +83,7 @@ class RankerCompany(BaseModel):
     company = ForeignKeyField(Company, backref='rankers')
     ranker = ForeignKeyField(Ranker, backref='companies')
     score = FloatField()
+    category = CharField()
     created_at = DateTimeField(default=datetime.now)
     updated_at = DateTimeField(default=datetime.now)
 
