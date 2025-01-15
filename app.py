@@ -26,3 +26,7 @@ app.include_router(company_endpoint.router)
 app.include_router(filter_endpoint.router)
 app.include_router(ranker_endpoint.router)
 
+@app.get('/')
+def hello():
+    return {'status': 'up!'}
+
