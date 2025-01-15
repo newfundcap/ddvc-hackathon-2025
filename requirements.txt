@@ -10,4 +10,5 @@ peewee
 playhouse
 psycopg2-binary
 yoyo-migrations
-uvicorn
+pydantic
+gunicorn

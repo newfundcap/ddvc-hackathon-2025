@@ -19,6 +19,6 @@ config = Config(
     db_user=os.getenv("DB_USER", "ddvc"),
     db_password=os.getenv("DB_PASSWORD", "password"),
     db_port=5432,
-    api_port=os.getenv("PORT", 5000),
+    api_port=os.getenv("PORT", 8033),
     api_host=os.getenv("HOST", "localhost"),
 )
