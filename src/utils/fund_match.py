@@ -10,6 +10,8 @@ import logging
 import requests
 import prompts
 import json
+from models import db, Company, Filter, Ranker, FilterCompany, RankerCompany, People, CompanyPeople
+from config import config
 
 load_dotenv()
 
@@ -20,7 +22,6 @@ def process_json(filename):
 
     script_dir = os.path.dirname(os.path.abspath(__file__))
     file_path = os.path.join(script_dir, filename)
-
     f = open(file_path)
     data = json.load(f)
     f.close()
@@ -32,13 +33,17 @@ def generate_file(filename, info):
     script_dir = os.path.dirname(os.path.abspath(__file__))
     f = open(os.path.join(script_dir, "match-info.json"), "w")
     f.write(info)
-    return f
 
 
-def call_model():
-    model_prompt: str
-    user_prompt: str
-    limit: int
+def rank_company(company: Company, people: People):
+
+    company_details = company.__dict__
+    people_details = people.__dict__
+    rankers = {}
+
+    for ranker in Ranker.select():
+        rankers.append(ranker.__dict__)
+        
 
     logging.info("OPENAI CALLED...")
 
@@ -46,7 +51,7 @@ def call_model():
         model = "gpt-4o",
         messages=[
             {"role": "developer",
-            "content": prompts.fund_matching + process_json("funds.json") + process_json("startup.json") + process_json("investor-preferences.json")}, # investor preferences can link to the investor's account or something like that
+            "content": prompts.fund_matching + process_json("funds.json") + process_json("startup.json") + process_json("investor-preferences.json")},
             {"role": "user",
             "content": "Generate an output as requested by the developer role."}
         ]
@@ -55,16 +60,9 @@ def call_model():
     generate_file("match-info.json", completion.choices[0].message.content.strip())
 
     print(completion.choices[0].message.content.strip())
-    
 
     prompt_tokens = completion.usage.prompt_tokens
     completion_tokens = completion.usage.completion_tokens
-
-    return OpenAIResponse(
-        body=completion.choices[0].message.content,
-        prompt_tokens=prompt_tokens,
-        completion_tokens=completion_tokens,
-    )
 
 
 
