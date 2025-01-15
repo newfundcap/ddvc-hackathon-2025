@@ -10,14 +10,14 @@ from models import db, Company, Filter, Ranker, FilterCompany, RankerCompany, Pe
 from contextlib import asynccontextmanager
 
 
-def initialize_database():
-    db.connect()
-    db.create_tables([Company, People, CompanyPeople, Filter, FilterCompany, Ranker, RankerCompany])
+# def initialize_database():
+#     db.connect()
+#     db.create_tables([Company, People, CompanyPeople, Filter, FilterCompany, Ranker, RankerCompany])
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    initialize_database()
+    # initialize_database()
     yield
     if not db.is_closed():
         db.close()
