@@ -4,3 +4,9 @@ colorlog==6.8.0
 pytest==8.0.1
 Requests==2.32.0
 python-dotenv==1.0.1
+fastapi
+peewee
+playhouse
+psycopg2-binary
+yoyo-migrations
+uvicorn
