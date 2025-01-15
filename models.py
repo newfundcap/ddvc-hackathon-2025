@@ -1,13 +1,14 @@
 from peewee import *
 from datetime import datetime
+from config import config
 
 # Database Connection
 db = PostgresqlDatabase(
-    'your_database',
-    user='your_user',
-    password='your_password',
-    host='localhost',
-    port=5432
+    config.db_name,
+    user=config.db_user,
+    password=config.db_password,
+    host=config.db_host,
+    port=config.db_port,
 )
 
 # Models
@@ -47,7 +48,12 @@ class People(BaseModel):
     linkedin = CharField()
     github = CharField()
     previous_founded_companies_count = IntegerField()
-    current_role = CharField()
+    role = CharField()
+
+class CompanyPeople(BaseModel):
+    id = AutoField()
+    company = ForeignKeyField(Company, backref='company')
+    people = ForeignKeyField(People, backref='people')
 
 class Filter(BaseModel):
     id = AutoField()

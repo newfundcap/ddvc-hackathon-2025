@@ -34,7 +34,7 @@ CREATE TABLE people
     linkedin                         VARCHAR ,
     github                           VARCHAR ,
     previous_founded_companies_count INTEGER ,
-    current_role                     VARCHAR
+    role                             VARCHAR
 );
 
 CREATE TABLE company_people

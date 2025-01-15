@@ -5,6 +5,7 @@ pytest==8.0.1
 Requests==2.32.0
 python-dotenv==1.0.1
 fastapi
+fastapi[standard]
 peewee
 playhouse
 psycopg2-binary
