@@ -60,42 +60,45 @@ def store_in_db(people: People, person_data: dict):
 
 
 def enrich(people: People, company: Company):
-    # Create a client, specifying your API key
-    pdl_client = PDLPY(api_key=config.pdl_api_key)
+    if (people.pdl_id is not None):
+        print(f"People id={people} already enriched with PDL, not calling API.")
+    else:
+        # Create a client, specifying your API key
+        pdl_client = PDLPY(api_key=config.pdl_api_key)
 
-    # Build the Elasticsearch query
-    ES_QUERY = {
-        "query": {
-            "bool": {
-                "must": [
-                    {"match": {"job_company_name": company.name}},  # Match specific company
-                    {"match": {"first_name": people.first_name}},  # Match first name
-                    {"match": {"last_name": people.last_name}}  # Match last name
-                ]
+        # Build the Elasticsearch query
+        ES_QUERY = {
+            "query": {
+                "bool": {
+                    "must": [
+                        {"match": {"job_company_name": company.name}},  # Match specific company
+                        {"match": {"first_name": people.first_name}},  # Match first name
+                        {"match": {"last_name": people.last_name}}  # Match last name
+                    ]
+                }
             }
         }
-    }
 
-    # Create parameters for the API call
-    PARAMS = {
-        "query": ES_QUERY,
-        "size": 10,
-        "pretty": True,
-    }
+        # Create parameters for the API call
+        PARAMS = {
+            "query": ES_QUERY,
+            "size": 10,
+            "pretty": True,
+        }
 
-    # Call the People Data Labs API
-    response = pdl_client.person.search(**PARAMS).json()
+        # Call the People Data Labs API
+        response = pdl_client.person.search(**PARAMS).json()
 
-    # Check for a successful response
-    if response["status"] == 200:
-        data = response["data"]
-        print(f"Successfully retrieved {len(data)} records.")
-        print(f"{response['total']} total records exist matching the query.")
-        person_data = data[0] if len(data) > 0 else None
-        if person_data:
-            people = store_in_db(people, person_data)
-    else:
-        print("Error:", response)
+        # Check for a successful response
+        if response["status"] == 200:
+            data = response["data"]
+            print(f"Successfully retrieved {len(data)} records.")
+            print(f"{response['total']} total records exist matching the query.")
+            person_data = data[0] if len(data) > 0 else None
+            if person_data:
+                people = store_in_db(people, person_data)
+        else:
+            print("Error:", response)
 
     return people
 
