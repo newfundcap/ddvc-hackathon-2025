@@ -40,6 +40,57 @@ CREATE DATABASE "ddvc_sourcing" WITH OWNER "ddvc";
 yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
 ```
 
+#### Test Startups from Different Funding Stages in Health and Fintech
+Pre-Seed & Seed Stage
+
+Company Name:Attane Health   - Founders: Elise Bates , David Klick, Emily Brown 
+
+Company Name:Secured Health  - Founders: Sean Crenshaw
+
+Company Name:Included Health - - Founders:Lawrence „Rusty“ Hofmann, Owen Tripp
+
+Company Name:healthOme - - Founders:David Stertzer, Darren Rowe
+
+Company Name:Akute Health - - Founders:Shared Agarwal
+
+Company Name:Humanaut Health - - Founders:Paul Paginate, Tony Cheng, Jim Donnelly
+
+Company Name:Being Health - - Founders:Allie Sharma
+
+Company Name:Always Health - - Founders:Peter Wang, Ian Börk
+
+Company Name:Hi.Health - - Founders:Sebastian Gruber
+
+Company Name:Swap Health - Founders:Aaron Doades
+
+Company Name:moment.ai - - Founders:Megan Gray, Matthew Tarascio 
+
+Company Name:Hang Health - - Founders:Chris Holbrook
+
+Company Name:Definition Health - - Founders:Rosie Scott, Sandeep Chauhan
+
+
+Series A+ 
+
+Company Name:9fin - - Founders:Steven Hunter 
+
+Company Name:Finally - - Founders:Felix Rodriguez, Edwin Mejia, Glennys Rodriguez 
+
+Company Name:Growfin - - Founders:Raja Jayaraman, Aravind Gopalan
+
+Company Name:Float - - Founders:Griffin Keglevich, Rob Khazzam, Ruslan Nikolaev
+
+Company Name:Finmid - - Founders:Alexander Talkanitsa, Max Scheitel
+
+Company Name:Neural Payments - - Founders:Mick Oppy 
+
+Company Name:Anyfin - - Founders:Mikael Hussain , Filip Polhem
+
+Company Name:Fintecture - - Founders:Faysal Oudmine, Javier Llorden
+
+Company Name:FundThrough - - Founders:Deepak Ramachandran, Steven Uster 
+
+Company Name:Fincom - - Founders:Gideon Drori 
 
 ### Run the server
 ```
