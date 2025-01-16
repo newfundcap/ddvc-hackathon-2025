@@ -57,7 +57,7 @@ export default function Modal({ onClose, company }) {
               <p className="text-gray-500 text-sm">{company.website}</p>
             </div>
             <div className="w-40 h-40">
-              <img src={company.logo_url} alt="" whidth="10" height="10" />
+              <img src={company.logo_url} alt="" whidth="10" height="10"/>
             </div>
           </div>
 
@@ -70,7 +70,7 @@ export default function Modal({ onClose, company }) {
             </div>
 
             <div className="flex items-center space-x-3">
-              <Briefcase className="w-5 h-5 text-blue-500" />
+              <Briefcase className="w-5 h-5 text-blue-500"/>
               <div>
                 <p className="text-sm font-medium text-gray-500">Sector</p>
                 <p className="text-gray-900">{company.sector}</p>
@@ -87,7 +87,7 @@ export default function Modal({ onClose, company }) {
             </div>
 
             <div className="flex items-center space-x-3">
-              <Calendar className="w-5 h-5 text-blue-500" />
+              <Calendar className="w-5 h-5 text-blue-500"/>
               <div>
                 <p className="text-sm font-medium text-gray-500">Founded</p>
                 <p className="text-gray-900">{company.creation_date}</p>
@@ -95,7 +95,7 @@ export default function Modal({ onClose, company }) {
             </div>
 
             <div className="flex items-center space-x-3">
-              <Users className="w-5 h-5 text-blue-500" />
+              <Users className="w-5 h-5 text-blue-500"/>
               <div>
                 <p className="text-sm font-medium text-gray-500">
                   Full-time Employees
@@ -107,7 +107,7 @@ export default function Modal({ onClose, company }) {
 
           <div className="flex-grow">
             <div className="flex items-center space-x-3 mb-3">
-              <FileText className="w-5 h-5 text-blue-500" />
+              <FileText className="w-5 h-5 text-blue-500"/>
               <h2 className="text-lg font-semibold text-gray-900">
                 Description
               </h2>
@@ -119,19 +119,32 @@ export default function Modal({ onClose, company }) {
           <div>
             <h2 className="text-lg font-semibold text-gray-900 mb-3">teams</h2>
             <p className="text-gray-700">
-              {company.team.map((elem, index) => {
-                return <span key={index}>{elem.name}</span>;
-              })}
+              <ul>
+                {company.team.map((elem, index) => {
+                  return <li key={index}>{elem.first_name} {elem.last_name}</li>;
+                })}
+              </ul>
+            </p>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">Scores</h2>
+            <p className="text-gray-700">
+              <ul>
+                {company.rankers.map((elem, index) => {
+                  return <li key={elem.name}>{elem.name}: {elem.score}</li>;
+                })}
+              </ul>
             </p>
           </div>
         </div>
 
         <div className="absolute bottom-8 right-8 flex gap-4">
-          <button className="px-6 py-2.5 bg-green-500 text-white rounded-lg font-medium shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:bg-green-600 transition-all duration-200">
+          <button
+              className="px-6 py-2.5 bg-green-500 text-white rounded-lg font-medium shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:bg-green-600 transition-all duration-200">
             Approuve
           </button>
           <button
-            onClick={handleDelete}
+              onClick={handleDelete}
             className="px-6 py-2.5 bg-red-500 text-white rounded-lg font-medium shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:bg-red-600 transition-all duration-200"
           >
             Decline
