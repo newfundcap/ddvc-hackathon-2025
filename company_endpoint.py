@@ -95,6 +95,9 @@ class CreateCompanyRequest(BaseModel):
 async def create_company(req: CreateCompanyRequest, background_tasks: BackgroundTasks) -> CompanyResponse:
     if (req.linkedin is None) and (req.website is None):
         raise HTTPException(status_code=400, detail="Require at least website or linkedin")
+    existing = Company.get_or_none(name=req.name)
+    if existing:
+        raise HTTPException(status_code=409, detail="Company already exists")
     try:
         company = Company.create(
             name=req.name,
