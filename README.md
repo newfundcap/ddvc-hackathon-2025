@@ -154,7 +154,7 @@ yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
 fastapi dev app.py
 ```
 
-Docs will be available at http://127.0.0.1:8000
+Docs will be available at http://127.0.0.1:8000/docs
 
 ## Documentation
 
