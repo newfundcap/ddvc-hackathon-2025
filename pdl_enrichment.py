@@ -22,9 +22,6 @@ def store_in_db(people: People, person_data: dict):
     people.linkedin = person_data.get("linkedin_url") if not people.linkedin else people.linkedin
     people.twitter_url = person_data.get("twitter_url") if not people.twitter_url else people.twitter_url
     people.github = person_data.get("github_url") if not people.github else people.github
-    people.work_email = person_data.get("work_email") if not people.work_email else people.work_email
-    people.personal_emails = person_data.get(
-        "personal_emails") if not people.personal_emails else people.personal_emails
     people.industry = person_data.get("industry") if not people.industry else people.industry
     people.job_title = person_data.get("job_title") if not people.job_title else people.job_title
     people.location_country = person_data.get(
