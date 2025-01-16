@@ -34,11 +34,13 @@ def enrich(company: Company) -> Tuple[Company, List[People]]:
                         id
                         firstName
                         lastName
+                        about
                         socials {
-                            linkedin {
-                                url
-                            }
+                            linkedin { url followerCount }
+                            twitter { url }
                         }
+                        experience {title isCurrentPosition }
+                        location { country }
                     }
                 }
             }
@@ -85,6 +87,12 @@ def enrich(company: Company) -> Tuple[Company, List[People]]:
                     last_name=person_data.get("lastName"),
                     linkedin=person_data.get("socials", {}).get("linkedin", {}).get("url"),
                     harmonic_id=person_data.get("id"),
+                    personal_emails=person_data.get("contact").get("emails"),
+                    job_title=person_data.get("experience")[0].get("title"),
+                    linkedin_connections=person_data.get("socials", {}).get("linkedin", {}).get("followerCount"),
+                    twitter_url=person_data.get("socials", {}).get("twitter", {}).get("url"),
+                    location_country=person_data.get("location").get("country"),
+                    summary=person_data.get("about")
                 )
                 CompanyPeople.create(company=company, people=people)
                 team.append(people)
