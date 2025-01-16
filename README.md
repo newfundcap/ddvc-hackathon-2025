@@ -1,6 +1,7 @@
-# ddvc-hackathon-2025
+# SourceRight (Startup Sourcing & Screening)
+![alt text](https://i.imgur.com/O8vZHPM.png)
 
-Code for the Data Driven VC Hackathon 2025 in Paris
+This project was built as part of the Data-Driven VC Hackathon organized by [Red River West](https://redriverwest.com) & [Bivwak! by BNP Paribas](https://bivwak.bnpparibas/)
 
 # STARTUP SOURCING
 
