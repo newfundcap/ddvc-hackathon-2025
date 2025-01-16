@@ -72,7 +72,7 @@ def apply_filters(company: Company, settings: dict, team: List[People]):
 
 
 def main():
-
+    pass
 
 if __name__ == "__main__":
     main()
