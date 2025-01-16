@@ -16,7 +16,7 @@ def parse_date(date_str: str):
 
 
 def store_in_db(people: People, person_data: dict):
-    people.pdl_id = people.pdl_id or person_data.get("person_id")
+    people.pdl_id = people.pdl_id or person_data.get("id")
     people.sex = people.sex or person_data.get("sex")
     people.linkedin = people.linkedin or person_data.get("linkedin_url")
     people.twitter_url = people.twitter_url or person_data.get("twitter_url")
