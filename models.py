@@ -89,6 +89,7 @@ class Filter(BaseModel):
 
     id = AutoField()
     name = CharField()
+    settings = BinaryJSONField()
     created_at = DateTimeField(default=datetime.now)
     updated_at = DateTimeField(default=datetime.now)
 

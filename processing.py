@@ -1,5 +1,6 @@
 from typing import List
 
+import filters
 import harmonic_enrichment
 import pdl_enrichment
 from models import Company, People
@@ -18,8 +19,9 @@ def enrich_company(company: Company):
         enriched_team.append(enriched_people)
     return company, enriched_team
 
-def apply_filters(company: Company):
+def apply_filters(company: Company, team: List[People]):
     print('Applying filters')
+    filters.filter_company(company, team)
     return
 
 def apply_rankers(company: Company, team: List[People]):
@@ -31,7 +33,11 @@ def apply_rankers(company: Company, team: List[People]):
 def process_company(company: Company):
     print(f"Processing company {company.name}")
     company, team = enrich_company(company)
-    apply_filters(company)
+    apply_filters(company, team)
     apply_rankers(company, team)
     print(f"Done processing {company.name}")
-    return
+    return company, team
+
+def test_module(company_id):
+    company = Company.get(Company.id == company_id)
+    return process_company(company)

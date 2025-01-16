@@ -1,0 +1,5 @@
+BEGIN;
+ALTER TABLE filter
+    ADD COLUMN settings JSONB NOT NULL DEFAULT '{}';
+
+COMMIT;
