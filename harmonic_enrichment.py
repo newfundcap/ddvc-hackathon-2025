@@ -82,22 +82,23 @@ def enrich(company: Company) -> Tuple[Company, List[People]]:
 
             # Créer les employés et les relations avec l'entreprise
             for person_data in team_data:
-                xp = person_data.get("experience")
-                title = xp[0].get("title") if len(xp) > 0 else None
-                people = People.create(
-                    first_name=person_data.get("firstName"),
-                    last_name=person_data.get("lastName"),
-                    linkedin=person_data.get("socials", {}).get("linkedin", {}).get("url"),
-                    harmonic_id=person_data.get("id"),
-                    personal_emails=person_data.get("contact", {}).get("emails"),
-                    job_title=title,
-                    linkedin_connections=person_data.get("socials", {}).get("linkedin", {}).get("followerCount"),
-                    # twitter_url=person_data.get("socials", {}).get("twitter", {}).get("url"),
-                    location_country=person_data.get("location").get("country"),
-                    summary=person_data.get("about")
-                )
-                CompanyPeople.create(company=company, people=people)
-                team.append(people)
+                if person_data.get("firstName") and person_data.get("lastName"):
+                    xp = person_data.get("experience")
+                    title = xp[0].get("title") if len(xp) > 0 else None
+                    people = People.create(
+                        first_name=person_data.get("firstName"),
+                        last_name=person_data.get("lastName"),
+                        linkedin=person_data.get("socials", {}).get("linkedin", {}).get("url"),
+                        harmonic_id=person_data.get("id"),
+                        personal_emails=person_data.get("contact", {}).get("emails"),
+                        job_title=title,
+                        linkedin_connections=person_data.get("socials", {}).get("linkedin", {}).get("followerCount"),
+                        # twitter_url=person_data.get("socials", {}).get("twitter", {}).get("url"),
+                        location_country=person_data.get("location").get("country"),
+                        summary=person_data.get("about")
+                    )
+                    CompanyPeople.create(company=company, people=people)
+                    team.append(people)
     else:
         print('Harmonic enrichment already done, not retrying')
         team = [people.people for people in company.employees]
