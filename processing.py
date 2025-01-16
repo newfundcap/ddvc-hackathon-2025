@@ -9,8 +9,9 @@ def enrich_company(company: Company):
 
     print('Enriching stuff from PDL')
     enriched_team = []
-    for people in team:
-        print(f"Enriching for {people.first_name}")
+    for people in team[:4]:
+        # only the first 4 of the team for rate limits on PDL
+        print(f"Enriching for {people.first_name} {people.last_name}")
         enriched_people = pdl_enrichment.enrich(people, company)
         enriched_team.append(enriched_people)
     return company, enriched_team

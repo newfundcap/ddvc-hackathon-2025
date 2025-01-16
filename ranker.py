@@ -34,7 +34,7 @@ def rank_company(company: Company, people: People):
 
     for ranker in Ranker.select():
         rankers.append(ranker.__dict__)
-        
+
 
     logging.info("OPENAI CALLED...")
 

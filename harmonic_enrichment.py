@@ -7,7 +7,8 @@ from models import Company, People, CompanyPeople
 
 
 def enrich(company: Company) -> Tuple[Company, List[People]]:
-    if company.harmonic_id:
+    if company.harmonic_id is None:
+        print('Enriching from harmonic')
         team = []
         URL = "https://api.harmonic.ai/graphql"
         body = """
@@ -88,7 +89,8 @@ def enrich(company: Company) -> Tuple[Company, List[People]]:
                 CompanyPeople.create(company=company, people=people)
                 team.append(people)
     else:
-        team = [people for people in company.employees]
+        print('Harmonic enrichment already done, not retrying')
+        team = [people.people for people in company.employees]
     return company, team
 
 
