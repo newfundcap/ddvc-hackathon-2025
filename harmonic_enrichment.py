@@ -94,7 +94,7 @@ def enrich(company: Company) -> Tuple[Company, List[People]]:
                         job_title=title,
                         linkedin_connections=person_data.get("socials", {}).get("linkedin", {}).get("followerCount"),
                         # twitter_url=person_data.get("socials", {}).get("twitter", {}).get("url"),
-                        location_country=person_data.get("location").get("country"),
+                        location_country=person_data.get("location", dict()).get("country"),
                         summary=person_data.get("about")
                     )
                     CompanyPeople.create(company=company, people=people)
