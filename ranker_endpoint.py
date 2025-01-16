@@ -19,25 +19,6 @@ class RankerResponse(BaseModel):
     name: str
     description: str
 
-class RankerCompanyResponse(BaseModel):
-    id: int
-    name: str
-    description: str
-    score: float
-    category: str
-    justification: str
-    warnings: str
-
-
-class RankerResponse(BaseModel):
-    id: int
-    name: str
-    description: str
-
-    companies: List[RankerCompanyResponse]
-
-    class Config:
-        orm_mode = True
 
 
 @router.post("/")
@@ -58,38 +39,8 @@ async def delete_ranker(ranker_id: int):
     ranker_obj.delete_instance()
     return {"detail": "Ranker deleted"}
 
-
-@router.get("/")
-async def list_rankers() -> list[RankerResponse]:
-    rankers = prefetch(
-        Ranker.select().order_by(Ranker.created_at.desc()),
-        RankerCompany.select(),
-    )
-    resp = []
-    for ranker in rankers:
-        ranker_response = RankerResponse(
-            id=ranker.id,
-            name=ranker.name,
-            description=ranker.description,
-
-            companies=[
-                RankerCompanyResponse(
-                    id=r_c.ranker.id,
-                    name=r_c.ranker.name,
-                    description=r_c.ranker.description,
-                    score=r_c.score,
-                    category=r_c.category,
-                    justification=r_c.justification,
-                    warnings=r_c.warnings,
-                ) for r_c in ranker.rankers
-            ],  # Assuming companies data to populate here
-        )
-
-        resp.append(ranker_response)
-
-    return resp
     
-@router.get("/all")
+@router.get("/")
 async def get_all_rankers() -> list[RankerResponse]:
     rankers = Ranker.select()
     
