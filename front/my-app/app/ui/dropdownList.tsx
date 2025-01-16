@@ -2,20 +2,10 @@
 
 import { useState, useRef, useEffect } from "react";
 
-const predefinedTags = [
-  "React",
-  "Next.js",
-  "TypeScript",
-  "Tailwind CSS",
-  "JavaScript",
-  "CSS",
-  "HTML",
-];
-
-export default function DropdownList() {
+export default function DropdownList({ rankers }) {
   const [inputValue, setInputValue] = useState("");
   const [tags, setTags] = useState<string[]>([]);
-  const [filteredTags, setFilteredTags] = useState(predefinedTags);
+  const [filteredTags, setFilteredTags] = useState(rankers);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const dropdownRef = useRef<HTMLUListElement>(null);
@@ -40,9 +30,7 @@ export default function DropdownList() {
     const value = e.target.value;
     setInputValue(value);
     setFilteredTags(
-      predefinedTags.filter((tag) =>
-        tag.toLowerCase().includes(value.toLowerCase())
-      )
+      rankers.filter((tag) => tag.toLowerCase().includes(value.toLowerCase()))
     );
     setIsDropdownOpen(true);
   };
@@ -51,7 +39,7 @@ export default function DropdownList() {
     if (tag && !tags.includes(tag)) {
       setTags([...tags, tag]);
       setInputValue("");
-      setFilteredTags(predefinedTags);
+      setFilteredTags(rankers);
       setIsDropdownOpen(false);
       inputRef.current?.focus();
     }

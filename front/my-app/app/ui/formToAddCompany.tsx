@@ -27,7 +27,7 @@ export default function FormToAddCompany() {
           <input
             id="nameCompany"
             type="text"
-            name=""
+            name="nameCompany"
             defaultValue={""}
             placeholder="Enter the name of the company"
             className="text-center p-1 outline-none"

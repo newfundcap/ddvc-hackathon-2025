@@ -106,12 +106,10 @@ export default function CardHome({ company }) {
         after:h-full after:bg-blend-overlay after:opacity-0 after:translate-y-full"
             >
               {/*class="home-card-info"*/}
-              <h1 className="leading-6 mb-2.5 relative z-[1] text-3xl font-bold font-playfair_display">
+              <h1 className="leading-6 mb-20 relative z-[1] text-3xl font-bold font-playfair_display">
                 {company.name}
               </h1>
-              <p className="mt-2.5 opacity-0 relative z-[1] font-medium text-lg">
-                {company.description}
-              </p>
+              <p className="mt-2.5 opacity-0 relative z-[1] font-medium text-lg"></p>
             </div>
           </div>
         </div>

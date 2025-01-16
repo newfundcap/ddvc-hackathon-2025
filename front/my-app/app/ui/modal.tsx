@@ -36,30 +36,6 @@ export default function Modal({ onClose, company }) {
     }
   };
 
-  // {
-  //   id: 3,
-  //   name: "EduSmart",
-  //   country: "India", // add
-  //   sector: "Education Technology", // add
-  //   contact: "support@edusmart.in",
-  //   funding_stage: "Seed", // add
-  //   creation_date: "2020-11-01", //add
-  //   investors: JSON.stringify(["EdTech Angels", "StartUp Incubator"]),
-  //   revenue: 3000000.0,
-  //   revenue_growth: 0.4,
-  //   total_amount_raised: 5000000,
-  //   description:
-  //     "EduSmart offers innovative solutions for online learning and skill development.",
-  //   website: "https://www.edusmart.in", // add
-  //   linkedin: "https://www.linkedin.com/company/edusmart", // add
-  //   harmonic_id: "HN54321",
-  //   pdl_id: "PDL98765",
-  //   full_time_employees: 50, // add
-  //   full_time_employees_growth: 0.5,
-  //   created_at: "2025-01-01T12:00:00",
-  //   updated_at: "2025-01-15T10:30:00",
-  // },
-
   const cardBgImage = {
     backgroundImage: `url(https://substack-post-media.s3.amazonaws.com/public/images/466308ce-12ae-425f-89ce-acd60f69578e_1279x474.png)`,
   };
@@ -81,12 +57,7 @@ export default function Modal({ onClose, company }) {
               <p className="text-gray-500 text-sm">{company.website}</p>
             </div>
             <div className="w-40 h-40">
-              <img
-                src="https://substack-post-media.s3.amazonaws.com/public/images/466308ce-12ae-425f-89ce-acd60f69578e_1279x474.png"
-                alt=""
-                whidth="10"
-                height="10"
-              />
+              <img src={company.logo_url} alt="" whidth="10" height="10" />
             </div>
           </div>
 
@@ -143,6 +114,14 @@ export default function Modal({ onClose, company }) {
             </div>
             <p className="text-gray-700 leading-relaxed">
               {company.description}
+            </p>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">teams</h2>
+            <p className="text-gray-700">
+              {company.team.map((elem, index) => {
+                return <span key={index}>{elem.name}</span>;
+              })}
             </p>
           </div>
         </div>

@@ -16,9 +16,11 @@ const getFormData = (formData: FormData): CompanyData => {
   const nameCompany = formData.get("nameCompany")?.toString();
   const linkLinkedin = formData.get("linkLinkedin")?.toString();
 
-  if (!webSite || !nameCompany || !linkLinkedin) {
-    throw new Error("Missing required fields");
-  }
+  // console.log(formData);
+
+  // if (!webSite || !nameCompany || !linkLinkedin) {
+  //   throw new Error("Missing required fields");
+  // }
 
   return { webSite, nameCompany, linkLinkedin };
 };
@@ -35,6 +37,27 @@ export const addCompany = async (
       nameCompany,
       linkLinkedin,
     });
+
+    const postData = async () => {
+      const payload = {
+        name: nameCompany,
+        linkedin: linkLinkedin,
+        website: webSite,
+      };
+
+      await fetch(
+        "https://app-236fde41-0ae0-461e-aa81-9e4a92329356.cleverapps.io/companies/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload),
+        }
+      );
+    };
+
+    postData();
 
     // Here you would typically add the logic to save the company data
     // For example, using a database call
