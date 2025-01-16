@@ -132,4 +132,4 @@ Docs will be available at http://127.0.0.1:8000
 
 The following project on startup sourcing receives inputs about opportunities from various sources, such as pitch decks,
 urls, data providers, and more, and outputs a filtered and ranked list of the startups in descending order, based on how
-they match with particular funds of a company. 
+they match with particular funds of a company.
