@@ -26,8 +26,8 @@ def apply_filters(company: Company, team: List[People]):
 
 def apply_rankers(company: Company, team: List[People]):
     print('Applying rankers')
-    ranker.rank_company(company, team)
-    return 
+    results = ranker.rank_company(company, team)
+    return results 
 
 
 def process_company(company: Company):
