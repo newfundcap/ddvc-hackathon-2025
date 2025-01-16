@@ -7,7 +7,7 @@ import { number } from "zod";
 
 import Modal from "./modal";
 
-export default function CardHome() {
+export default function CardHome({ company }) {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [mousePosition, setMousePosition] = useState({ mouseX: 0, mouseY: 0 });
   const [mouseLeaveDelay, setMouseLeaveDelay] = useState(null);
@@ -71,7 +71,11 @@ export default function CardHome() {
 
   return (
     <div>
-      {showModal ? <Modal onClose={handleShowModal} /> : <></>}
+      {showModal ? (
+        <Modal onClose={handleShowModal} company={company} />
+      ) : (
+        <></>
+      )}
       <span onClick={handleShowModal}>
         <div
           className=" m-2.5 perspective-800 transform-style-3d text-slate-200 cursor-pointer
@@ -103,10 +107,10 @@ export default function CardHome() {
             >
               {/*class="home-card-info"*/}
               <h1 className="leading-6 mb-2.5 relative z-[1] text-3xl font-bold font-playfair_display">
-                Title
+                {company.name}
               </h1>
               <p className="mt-2.5 opacity-0 relative z-[1] font-medium text-lg">
-                description
+                {company.description}
               </p>
             </div>
           </div>

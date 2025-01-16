@@ -5,7 +5,16 @@ import { deleteItem } from "../action/deleteItem";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function Modal({ onClose }) {
+import {
+  Building2,
+  Globe,
+  Users,
+  Calendar,
+  Briefcase,
+  FileText,
+} from "lucide-react";
+
+export default function Modal({ onClose, company }) {
   const [error, setError] = useState<any>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const router = useRouter();
@@ -27,33 +36,127 @@ export default function Modal({ onClose }) {
     }
   };
 
+  // {
+  //   id: 3,
+  //   name: "EduSmart",
+  //   country: "India", // add
+  //   sector: "Education Technology", // add
+  //   contact: "support@edusmart.in",
+  //   funding_stage: "Seed", // add
+  //   creation_date: "2020-11-01", //add
+  //   investors: JSON.stringify(["EdTech Angels", "StartUp Incubator"]),
+  //   revenue: 3000000.0,
+  //   revenue_growth: 0.4,
+  //   total_amount_raised: 5000000,
+  //   description:
+  //     "EduSmart offers innovative solutions for online learning and skill development.",
+  //   website: "https://www.edusmart.in", // add
+  //   linkedin: "https://www.linkedin.com/company/edusmart", // add
+  //   harmonic_id: "HN54321",
+  //   pdl_id: "PDL98765",
+  //   full_time_employees: 50, // add
+  //   full_time_employees_growth: 0.5,
+  //   created_at: "2025-01-01T12:00:00",
+  //   updated_at: "2025-01-15T10:30:00",
+  // },
+
+  const cardBgImage = {
+    backgroundImage: `url(https://substack-post-media.s3.amazonaws.com/public/images/466308ce-12ae-425f-89ce-acd60f69578e_1279x474.png)`,
+  };
+
   return (
     <div>
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 transition-all duration-300"></div>
-      <div className="fixed w-3/5 h-3/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-blue-50 to-white p-12 z-50 rounded-xl shadow-2xl border border-blue-100">
+      <div className="fixed w-3/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-blue-50 to-white p-12 z-50 rounded-xl shadow-2xl border border-blue-100">
         <button className="absolute top-6 right-6 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-all duration-200">
           <X onClick={onClose} size={20} />
         </button>
 
-        <div className="h-full flex flex-col">
-          <h1 className="text-3xl font-semibold text-gray-800 mb-4">
-            Modal Title
-          </h1>
-          <div className="prose prose-gray max-w-none flex-grow">
-            <p className="text-gray-600 text-lg leading-relaxed">lala</p>
+        <div className="h-full flex flex-col bg-gradient-to-br from-blue-50 via-white to-purple-50 p-6 rounded-lg">
+          <div className="flex items-center space-x-6 mb-8 justify-between">
+            <div className="border-b border-gray-200 pb-4 mb-6 ">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                {company.name}
+              </h1>
+              <p className="text-gray-500 text-sm">{company.website}</p>
+            </div>
+            <div className="w-40 h-40">
+              <img
+                src="https://substack-post-media.s3.amazonaws.com/public/images/466308ce-12ae-425f-89ce-acd60f69578e_1279x474.png"
+                alt=""
+                whidth="10"
+                height="10"
+              />
+            </div>
           </div>
 
-          <div className="absolute bottom-8 right-8 flex gap-4">
-            <button className="px-6 py-2.5 bg-green-500 text-white rounded-lg font-medium shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:bg-green-600 transition-all duration-200">
-              Confirm
-            </button>
-            <button
-              onClick={handleDelete}
-              className="px-6 py-2.5 bg-red-500 text-white rounded-lg font-medium shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:bg-red-600 transition-all duration-200"
-            >
-              Cancel
-            </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="flex items-center space-x-3">
+              <div>
+                <p className="text-sm font-medium text-gray-500">Country</p>
+                <p className="text-gray-900">{company.country}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <Briefcase className="w-5 h-5 text-blue-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-500">Sector</p>
+                <p className="text-gray-900">{company.sector}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <div>
+                <p className="text-sm font-medium text-gray-500">
+                  Funding Stage
+                </p>
+                <p className="text-gray-900">{company.funding_stage}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <Calendar className="w-5 h-5 text-blue-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-500">Founded</p>
+                <p className="text-gray-900">{company.creation_date}</p>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-3">
+              <Users className="w-5 h-5 text-blue-500" />
+              <div>
+                <p className="text-sm font-medium text-gray-500">
+                  Full-time Employees
+                </p>
+                <p className="text-gray-900">{company.full_time_employees}</p>
+              </div>
+            </div>
           </div>
+
+          <div className="flex-grow">
+            <div className="flex items-center space-x-3 mb-3">
+              <FileText className="w-5 h-5 text-blue-500" />
+              <h2 className="text-lg font-semibold text-gray-900">
+                Description
+              </h2>
+            </div>
+            <p className="text-gray-700 leading-relaxed">
+              {company.description}
+            </p>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 right-8 flex gap-4">
+          <button className="px-6 py-2.5 bg-green-500 text-white rounded-lg font-medium shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:bg-green-600 transition-all duration-200">
+            Approuve
+          </button>
+          <button
+            onClick={handleDelete}
+            className="px-6 py-2.5 bg-red-500 text-white rounded-lg font-medium shadow-lg shadow-red-500/30 hover:shadow-red-500/50 hover:bg-red-600 transition-all duration-200"
+          >
+            Decline
+          </button>
         </div>
       </div>
     </div>
