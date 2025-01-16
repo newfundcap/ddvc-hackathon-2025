@@ -161,3 +161,53 @@ async def list_companies() -> list[CompanyResponse]:
         resp.append(company_response)
 
     return resp
+
+
+@router.get("/{company_id}")
+async def get_company(company_id: int) -> CompanyResponse:
+    company = Company.get_or_none(id=company_id)
+    if not company:
+        raise HTTPException(status_code=404, detail='Company not found')
+
+    company_response = CompanyResponse(
+        id=company.id,
+        name=company.name,
+        website=company.website,
+        linkedin=company.linkedin,
+        created_at=company.created_at.isoformat() if company.created_at else None,
+        updated_at=company.updated_at.isoformat() if company.updated_at else None,
+        country=company.country,
+        sector=company.sector,
+        logo_url=company.logo_url,
+        contact=company.contact,
+        funding_stage=company.funding_stage,
+        creation_date=company.creation_date.isoformat() if company.creation_date else None,
+        investors=company.investors,
+        revenue=company.revenue,
+        revenue_growth=company.revenue_growth,
+        total_amount_raised=company.total_amount_raised,
+        description=company.description,
+        harmonic_id=company.harmonic_id,
+        pdl_id=company.pdl_id,
+        full_time_employees=company.full_time_employees,
+        full_time_employees_growth=company.full_time_employees_growth,
+
+        team=[PeopleResponse(**model_to_dict(person.people)) for person in company.employees],
+        rankers=[
+            RankerCompanyResponse(
+                id=r_c.ranker.id,
+                name=r_c.ranker.name,
+                description=r_c.ranker.description,
+                score=r_c.score,
+                category=r_c.category,
+                justification=r_c.justification,
+                warnings=r_c.warnings,
+            ) for r_c in company.rankers
+        ],  # Assuming rankers data to populate here
+        filters=[
+            FilterCompanyResponse(id=f_c.filter.id, name=f_c.filter.name)
+            for f_c in company.filters
+        ],  # Assuming rankers data to populate here
+    )
+
+    return company_response
