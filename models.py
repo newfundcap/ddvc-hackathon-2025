@@ -108,7 +108,7 @@ class Ranker(BaseModel):
 
     id = AutoField()
     name = CharField()
-    description = CharField() # summary of diff types of rankers, e.g. investment thesis or investor preferences
+    description = TextField() # summary of diff types of rankers, e.g. investment thesis or investor preferences
     created_at = DateTimeField(default=datetime.now)
     updated_at = DateTimeField(default=datetime.now)
 

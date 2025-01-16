@@ -1,5 +1,6 @@
 import os
 from dataclasses import dataclass
+from dotenv import load_dotenv
 
 
 @dataclass
@@ -13,7 +14,10 @@ class Config:
     api_host: str
     pdl_api_key: str
     harmonic_api_key: str
+    openai_api_key: str
 
+
+load_dotenv()
 
 config = Config(
     db_host=os.getenv("DB_HOST", "localhost"),
@@ -25,4 +29,5 @@ config = Config(
     api_host=os.getenv("HOST", "localhost"),
     pdl_api_key=os.getenv("PDL_API_KEY", "not a key"),
     harmonic_api_key=os.getenv("HARMONIC_API_KEY", "not a key"),
+    openai_api_key=os.getenv("OPENAI_API_KEY", "not a key"),
 )

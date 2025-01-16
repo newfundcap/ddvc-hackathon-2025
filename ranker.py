@@ -1,99 +1,53 @@
-import os, wave, struct
-import openai
-from openai import OpenAI
-from dotenv import load_dotenv
-from dotenv import find_dotenv
+import json
+from typing import List
 
+from openai import OpenAI
+from playhouse.shortcuts import model_to_dict
+
+import json_utils
 import prompts
 import logging
-import requests
-import prompts
-import json
-from models import db, Company, Filter, Ranker, FilterCompany, RankerCompany, People, CompanyPeople
+from models import Company, Ranker, RankerCompany, People
 from config import config
 
-load_dotenv()
 
-OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
-client = OpenAI(api_key=OPENAI_API_KEY)
-
-def add_ranker(ranker_name: str, ranker_description: str):
-    new_ranker = Ranker.create(name=ranker_name, description=ranker_description)
-    return new_ranker
-
-def store_ranker(ranker: Ranker, name: str, description: str):
-    ranker.name = ranker.name or name
-    ranker.description = ranker.description or description
-    ranker.save()
-
-def rank_company(company: Company, people: People):
-
-    company_details = company.__dict__
-    people_details = people.__dict__
-    rankers = []
-
+def rank_company(company: Company, team: List[People]):
+    print(f"Ranking company {company.name}")
+    client = OpenAI(api_key=config.openai_api_key)
+    company_details = json.dumps(model_to_dict(company), default=json_utils.json_serial)
+    people_details = '\n'.join([json.dumps(model_to_dict(t), default=json_utils.json_serial) for t in team])
+    results = []
     for ranker in Ranker.select():
-        rankers.append(ranker.__dict__)
+        print(f"Ranking company {company.name} agains {ranker.name}")
+
+        completion = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[
+                {"role": "developer",
+                 "content": prompts.startup_matching + "\nStartup Information:\n" + company_details + "\nPeople Information:\n" + people_details + "\nRanker:\n" + ranker.description},
+                {"role": "user",
+                 "content": "Generate an output as requested by the developer role."}
+            ]
+        )
+
+        startup_match_info = json.loads(completion.choices[0].message.content.strip())
+
+        ranker_company = RankerCompany.create(
+            ranker_id=ranker.id,
+            company_id=company.id,
+            score=int(startup_match_info.get("score")),
+            category=startup_match_info.get("category"),
+            justification=startup_match_info.get("justification"),
+            warnings=startup_match_info.get("gaps"),
+        )
+
+        ranker_company.save()
+        results.append(ranker_company)
+    return results
 
 
-    logging.info("OPENAI CALLED...")
-
-    completion = client.chat.completions.create(
-        model = "gpt-4o",
-        messages=[
-            {"role": "developer",
-            "content": prompts.startup_matching + "\nStartup Information:\n" + company_details + "\nPeople Information:\n" + people_details + "\nRankers:\n" + rankers},
-            {"role": "user",
-            "content": "Generate an output as requested by the developer role."}
-        ]
-    )
-
-    print(completion.choices[0].message.content.strip())
-
-    startup_match_info = completion.choices[0].message.content.strip()
-
-    #db.connect()
-
-    ranker_company = RankerCompany.select().where(RankerCompany.company.id == startup_match_info.get("startup-id")).get()
-    ranker_company.score = int(startup_match_info.get("score"))
-    ranker_company.category = startup_match_info.get("category")
-    ranker_company.justification = startup_match_info.get("justification")
-    ranker_company.warnings = startup_match_info.get("warnings")
-
-    ranker_company.save()
-
-    #db.close()
-
-
-def delete_all_files():
-    files_list = client.files.list()
-    files_list = [file.id for file in files_list.data]
-
-    if files_list == []:
-        logging.info("No files to delete")
-        return
-    i = 0
-    for file in files_list:
-        client.files.delete(file)
-        i += 1
-        logging.info(f"({i}) Deleted file {file}")
-
-
-def delete_all_assistants():
-    my_assistants = client.beta.assistants.list(
-        order="desc",
-        limit=50,
-    )
-    if my_assistants.data == []:
-        logging.info("No assistants to delete")
-        return
-    i = 0
-    for assistant in my_assistants.data:
-        client.beta.assistants.delete(assistant.id)
-        i += 1
-        logging.info(f"({i}) Deleted assistant {assistant.id}")
-
-
-def delete_all():
-    delete_all_files()
-    delete_all_assistants()
+def test_module(company_id):
+    company = Company.get(company_id)
+    team = [c_p.people for c_p in company.employees]
+    results = rank_company(company, team)
+    return results

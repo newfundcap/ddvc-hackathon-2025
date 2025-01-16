@@ -1,6 +1,8 @@
+from typing import List
+
 import harmonic_enrichment
 import pdl_enrichment
-from models import Company
+from models import Company, People
 import ranker, prompts
 
 def enrich_company(company: Company):
@@ -20,16 +22,16 @@ def apply_filters(company: Company):
     print('Applying filters')
     return
 
-def apply_rankers(company: Company):
+def apply_rankers(company: Company, team: List[People]):
     print('Applying rankers')
-    ranker.rank_company(company)
+    ranker.rank_company(company, team)
     return 
 
 
 def process_company(company: Company):
     print(f"Processing company {company.name}")
-    company = enrich_company(company)
+    company, team = enrich_company(company)
     apply_filters(company)
-    apply_rankers(company)
+    apply_rankers(company, team)
     print(f"Done processing {company.name}")
     return
