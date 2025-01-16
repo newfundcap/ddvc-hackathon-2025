@@ -61,7 +61,7 @@ yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
 
 - **Company Name:** Akute Health  
   **Founders:** Shared Agarwal
-
+ --> Should be ranked low, if the search is made for Brain Health Startups, as this is EHR startup
 - **Company Name:** Humanaut Health  
   **Founders:** Paul Paginate, Tony Cheng, Jim Donnelly
 
@@ -95,7 +95,7 @@ yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
 
 - **Company Name:** Finally  
   **Founders:** Felix Rodriguez, Edwin Mejia, Glennys Rodriguez
-
+ --> Should be filtered out, due to Debt Stage Funding Stage
 - **Company Name:** Growfin  
   **Founders:** Raja Jayaraman, Aravind Gopalan
 
