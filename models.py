@@ -58,6 +58,19 @@ class People(BaseModel):
     github = CharField()
     previous_founded_companies_count = IntegerField()
     role = CharField()
+    sex = CharField()
+    twitter_url = CharField()
+    work_email = CharField() 
+    personal_emails = BinaryJSONField(default='[]') 
+    indsutry = CharField()
+    job_title = CharField()
+    location_country = CharField()
+    inferred_years_experience = IntegerField()
+    summary = TextField() 
+    interests = BinaryJSONField(default='[]') 
+    pdl_id = CharField()
+    harmonic_id = CharField()
+
 
 
 class CompanyPeople(BaseModel):
