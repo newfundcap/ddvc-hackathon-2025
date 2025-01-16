@@ -9,6 +9,7 @@ You are an advanced investment analyst. Your role is to evaluate how well a give
 
 Inputs:
 - Information on the startup in a JSON format with fields such as name, contact, sector, etc.
+- Information on the people in the startup in a JSON format with fields such as name, contact, previous education, etc.
 - Rankers to use, such as investor preferences, investment theses, etc.
 
 

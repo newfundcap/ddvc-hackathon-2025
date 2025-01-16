@@ -34,9 +34,10 @@ def generate_file(filename, info):
     f.write(info)
 
 
-def rank_company(company: Company):
+def rank_company(company: Company, people: People):
 
     company_details = company.__dict__
+    people_details = people.__dict__
     rankers = []
 
     for ranker in Ranker.select():
@@ -49,7 +50,7 @@ def rank_company(company: Company):
         model = "gpt-4o",
         messages=[
             {"role": "developer",
-            "content": prompts.startup_matching + "\nStartup Information:\n" + company_details + "\nRankers:\n" + rankers},
+            "content": prompts.startup_matching + "\nStartup Information:\n" + company_details + "\nPeople Information:\n" + people_details + "\nRankers:\n" + rankers},
             {"role": "user",
             "content": "Generate an output as requested by the developer role."}
         ]
