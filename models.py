@@ -124,6 +124,8 @@ class RankerCompany(BaseModel):
     ranker = ForeignKeyField(Ranker, backref='companies')
     score = FloatField()
     category = CharField()
+    justification = CharField()
+    warnings = CharField()
     created_at = DateTimeField(default=datetime.now)
     updated_at = DateTimeField(default=datetime.now)
 
