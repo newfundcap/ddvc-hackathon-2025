@@ -52,6 +52,8 @@ def rank_company(company: Company, people: People):
 
     startup_match_info = completion.choices[0].message.content.strip()
 
+    #db.connect()
+
     ranker_company = RankerCompany.select().where(RankerCompany.company.id == startup_match_info.get("startup-id")).get()
     ranker_company.score = int(startup_match_info.get("score"))
     ranker_company.category = startup_match_info.get("category")
@@ -59,6 +61,8 @@ def rank_company(company: Company, people: People):
     ranker_company.warnings = startup_match_info.get("warnings")
 
     ranker_company.save()
+
+    #db.close()
 
 
 def delete_all_files():
