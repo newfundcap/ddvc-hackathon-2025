@@ -69,7 +69,7 @@ export default function DropdownList() {
   };
 
   return (
-    <main className="p-4 max-w-md mx-auto">
+    <div className="p-4 max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-4">Tag Selector</h1>
       <div className="relative mb-4">
         <input
@@ -116,13 +116,13 @@ export default function DropdownList() {
           </div>
         ))}
       </div>
-      <button
+      {/* <button
         onClick={() => addTag(inputValue)}
         disabled={!inputValue}
         className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50"
       >
         Add Tag
-      </button>
-    </main>
+      </button> */}
+    </div>
   );
 }
