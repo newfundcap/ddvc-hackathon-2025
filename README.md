@@ -37,7 +37,7 @@ CREATE DATABASE "ddvc_sourcing" WITH OWNER "ddvc";
 
 ### Create the tables
 ```
-yoyo apply --database=postgresql://localhost:5432/ddvc_sourcing
+yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
 ```
 
 

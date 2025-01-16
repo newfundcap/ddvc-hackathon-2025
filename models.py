@@ -70,6 +70,7 @@ class People(BaseModel):
     interests = BinaryJSONField(default='[]') 
     pdl_id = CharField()
     harmonic_id = CharField()
+    linkedin_connections = IntegerField()
 
 
 
@@ -78,8 +79,9 @@ class CompanyPeople(BaseModel):
         db_table = 'company_people'
 
     id = AutoField()
-    company = ForeignKeyField(Company, backref='companies')
-    people = ForeignKeyField(People, backref='employees')
+    company = ForeignKeyField(Company, backref='employees')
+    people = ForeignKeyField(People, backref='companies')
+
 
 
 class Filter(BaseModel):

@@ -1,6 +1,5 @@
 BEGIN;
--- ALTER TABLE people ADD COLUMN pdl_id VARCHAR;
-
+ALTER TABLE ranker ADD COLUMN description TEXT;
 
 
 COMMIT;
