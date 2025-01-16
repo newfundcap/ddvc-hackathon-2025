@@ -89,7 +89,7 @@ async def list_rankers() -> list[RankerResponse]:
 
     return resp
     
-@router.get("/")
+@router.get("/all")
 async def get_all_rankers() -> list[RankerResponse]:
     rankers = Ranker.select()
     
