@@ -8,10 +8,12 @@ def enrich_company(company: Company):
     company, team = harmonic_enrichment.enrich(company)
 
     print('Enriching stuff from PDL')
+    enriched_team = []
     for people in team:
         print(f"Enriching for {people.first_name}")
         enriched_people = pdl_enrichment.enrich(people, company)
-    return company, people
+        enriched_team.append(enriched_people)
+    return company, enriched_team
 
 def apply_filters(company: Company):
     print('Applying filters')
