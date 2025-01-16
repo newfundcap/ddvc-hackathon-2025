@@ -34,10 +34,9 @@ def generate_file(filename, info):
     f.write(info)
 
 
-def rank_company(company: Company, people: People):
+def rank_company(company: Company):
 
     company_details = company.__dict__
-    people_details = people.__dict__
     rankers = []
 
     for ranker in Ranker.select():
@@ -50,7 +49,7 @@ def rank_company(company: Company, people: People):
         model = "gpt-4o",
         messages=[
             {"role": "developer",
-            "content": prompts.startup_matching + "\nStartup Information:\n" + company_details + "\nPeople Information:\n" + people_details + "\nRankers:\n" + rankers},
+            "content": prompts.startup_matching + "\nStartup Information:\n" + company_details + "\nRankers:\n" + rankers},
             {"role": "user",
             "content": "Generate an output as requested by the developer role."}
         ]
@@ -65,52 +64,6 @@ def rank_company(company: Company, people: People):
     ranker_company.category = startup_match_info.get("category")
 
     ranker_company.save()
-
-
-def openai_api_calculate_cost(usage, model: str) -> float:
-    pricing = {
-        "gpt-3.5": {
-            "prompt": 0.0015,
-            "completion": 0.002,
-        },
-
-        "gpt-4": {
-            "prompt": 0.03,
-            "completion": 0.06,
-        },
-
-        "gpt-4o": {
-            "prompt": 0.0045,
-            "completion": 0.0135,
-        },
-
-        "gpt-4o-mini": {
-            "prompt": 0.0015,
-            "completion": 0.006,
-        }
-    }
-
-    try:
-        model_pricing = pricing[model]
-    except KeyError:
-        raise ValueError("Invalid model specified")
-    
-    prompt_cost = usage.prompt_tokens * model_pricing["prompt"] / 1000
-    completion_cost = usage.completion_tokens * model_pricing["completion"] / 1000
-
-    total_cost = prompt_cost + completion_cost
-    # round to 6 decimals
-    total_cost = round(total_cost, 6)
-
-    logging.info(
-        f"Tokens used:  {usage.prompt_tokens:,} prompt + {usage.completion_tokens:,} completion = {usage.total_tokens:,} tokens"
-    )
-    logging.info(f"Total cost [{model}]: ${total_cost:.4f}\n")
-
-    print(f"Tokens used:  {usage.prompt_tokens:,} prompt + {usage.completion_tokens:,} completion = {usage.total_tokens:,} tokens")
-    print(f"Total cost [{model}]: ${total_cost:.4f}\n")
-
-    return total_cost
 
 
 def delete_all_files():

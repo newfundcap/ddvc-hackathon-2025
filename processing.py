@@ -1,6 +1,7 @@
 import harmonic_enrichment
 import pdl_enrichment
 from models import Company
+from src.utils import ranker, prompts
 
 def enrich_company(company: Company):
     print('Enriching stuff from harmonic')
@@ -18,7 +19,8 @@ def apply_filters(company: Company):
 
 def apply_rankers(company: Company):
     print('Applying rankers')
-    return
+    ranker.rank_company(company)
+    return 
 
 
 def process_company(company: Company):
