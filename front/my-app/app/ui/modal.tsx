@@ -43,7 +43,7 @@ export default function Modal({ onClose, company }) {
   return (
     <div>
       <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 transition-all duration-300"></div>
-      <div className="fixed w-3/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-blue-50 to-white p-12 z-50 rounded-xl shadow-2xl border border-blue-100">
+      <div className="fixed w-3/5 h-4/5 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-gradient-to-br from-blue-50 to-white p-12 z-50 rounded-xl shadow-2xl border border-blue-100 overflow-y-auto overflow-x-hidden">
         <button className="absolute top-6 right-6 p-2 rounded-full bg-gray-50 hover:bg-gray-100 text-gray-400 hover:text-gray-600 transition-all duration-200">
           <X onClick={onClose} size={20} />
         </button>
@@ -117,16 +117,6 @@ export default function Modal({ onClose, company }) {
             </p>
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">teams</h2>
-            <p className="text-gray-700">
-              <ul>
-                {company.team.map((elem, index) => {
-                  return <li key={index}>{elem.first_name} {elem.last_name}</li>;
-                })}
-              </ul>
-            </p>
-          </div>
-          <div>
             <h2 className="text-lg font-semibold text-gray-900 mb-3">Scores</h2>
             <p className="text-gray-700">
               <ul>
@@ -136,12 +126,32 @@ export default function Modal({ onClose, company }) {
               </ul>
             </p>
           </div>
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">Warnings</h2>
+            <p className="text-gray-700">
+              <ul>
+                {company.filters.map((elem, index) => {
+                  return <li key={elem.name}>{elem.name}</li>;
+                })}
+              </ul>
+            </p>
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold text-gray-900 mb-3">Team</h2>
+            <p className="text-gray-700">
+              <ul>
+                {company.team.map((elem, index) => {
+                  return <li key={index}>{elem.first_name} {elem.last_name}</li>;
+                })}
+              </ul>
+            </p>
+          </div>
         </div>
 
         <div className="absolute bottom-8 right-8 flex gap-4">
           <button
               className="px-6 py-2.5 bg-green-500 text-white rounded-lg font-medium shadow-lg shadow-green-500/30 hover:shadow-green-500/50 hover:bg-green-600 transition-all duration-200">
-            Approuve
+            Approve
           </button>
           <button
               onClick={handleDelete}
