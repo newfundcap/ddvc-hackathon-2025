@@ -92,7 +92,7 @@ def enrich(company: Company) -> Tuple[Company, List[People]]:
                     personal_emails=person_data.get("contact", {}).get("emails"),
                     job_title=title,
                     linkedin_connections=person_data.get("socials", {}).get("linkedin", {}).get("followerCount"),
-                    twitter_url=person_data.get("socials", {}).get("twitter", {}).get("url"),
+                    # twitter_url=person_data.get("socials", {}).get("twitter", {}).get("url"),
                     location_country=person_data.get("location").get("country"),
                     summary=person_data.get("about")
                 )
