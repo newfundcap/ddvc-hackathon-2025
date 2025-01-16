@@ -1,7 +1,7 @@
 import harmonic_enrichment
 import pdl_enrichment
 from models import Company
-from src.utils import ranker, prompts
+import ranker, prompts
 
 def enrich_company(company: Company):
     print('Enriching stuff from harmonic')

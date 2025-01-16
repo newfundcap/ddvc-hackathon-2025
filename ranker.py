@@ -17,22 +17,14 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 client = OpenAI(api_key=OPENAI_API_KEY)
 
-def process_json(filename):
+def add_ranker(ranker_name: str, ranker_description: str):
+    new_ranker = Ranker.create(name=ranker_name, description=ranker_description)
+    return new_ranker
 
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    file_path = os.path.join(script_dir, filename)
-    f = open(file_path)
-    data = json.load(f)
-    f.close()
-    return json.dumps(data)
-
-
-def generate_file(filename, info):
-
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    f = open(os.path.join(script_dir, "match-info.json"), "w")
-    f.write(info)
-
+def store_ranker(ranker: Ranker, name: str, description: str):
+    ranker.name = ranker.name or name
+    ranker.description = ranker.description or description
+    ranker.save()
 
 def rank_company(company: Company, people: People):
 
