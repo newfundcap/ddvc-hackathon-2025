@@ -112,7 +112,8 @@ async def create_company(req: CreateCompanyRequest, background_tasks: Background
 async def list_companies(rankers: Optional[List[str]] = Query(default=None)) -> list[CompanyResponse]:
     base_query = Company.select().order_by(Company.created_at.desc())
     if rankers:
-        company_ids = list({r.company_id for r in RankerCompany.select(RankerCompany).join(Ranker).where(Ranker.name.in_(rankers))})
+        company_ids = list({r.company_id for r in RankerCompany.select(RankerCompany).join(Ranker)
+                           .where(Ranker.name.in_(rankers) & (RankerCompany.score >= 5) )})
         base_query = Company.select().order_by(Company.created_at.desc()).where(Company.id.in_(company_ids))
     companies = prefetch(
         base_query,
