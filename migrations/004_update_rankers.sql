@@ -1,0 +1,6 @@
+BEGIN;
+-- ALTER TABLE people ADD COLUMN pdl_id VARCHAR;
+
+
+
+COMMIT;

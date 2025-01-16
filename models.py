@@ -62,7 +62,7 @@ class People(BaseModel):
     twitter_url = CharField()
     work_email = CharField() 
     personal_emails = BinaryJSONField(default='[]') 
-    indsutry = CharField()
+    industry = CharField()
     job_title = CharField()
     location_country = CharField()
     inferred_years_experience = IntegerField()
