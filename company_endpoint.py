@@ -81,18 +81,16 @@ class CompanyResponse(BaseModel):
     rankers: List[RankerCompanyResponse]
     filters: List[FilterCompanyResponse]
 
-    class Config:
-        orm_mode = True
 
 
 class CreateCompanyRequest(BaseModel):
     name: str
-    website: Optional[str]
-    linkedin: Optional[str]
+    website: Optional[str] = None
+    linkedin: Optional[str] = None
 
 
 @router.post("/")
-async def create_company(req: CreateCompanyRequest, background_tasks: BackgroundTasks) -> CompanyResponse:
+async def create_company(req: CreateCompanyRequest, background_tasks: BackgroundTasks):
     if (req.linkedin is None) and (req.website is None):
         raise HTTPException(status_code=400, detail="Require at least website or linkedin")
     existing = Company.get_or_none(name=req.name)
