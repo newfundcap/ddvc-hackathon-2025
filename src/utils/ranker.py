@@ -5,7 +5,6 @@ from dotenv import load_dotenv
 from dotenv import find_dotenv
 
 import prompts
-from dataclasses_config import OpenAIResponse
 import logging
 import requests
 import prompts
