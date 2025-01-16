@@ -1,47 +1,7 @@
 from datetime import datetime
+from typing import List
 
-
-class Company:
-    def __init__(
-        self,
-        name,
-        country,
-        sector,
-        team,
-        contact,
-        funding_stage,
-        creation_date,
-        investors,
-        revenue,
-        revenue_growth,
-        total_amount_raised,
-        description,
-        website,
-        linkedin,
-        harmonic_id,
-        pdl_id,
-        full_time_employees,
-        full_time_employees_growth,
-    ):
-        self.name = name
-        self.country = country
-        self.sector = sector
-        self.team = team
-        self.contact = contact
-        self.funding_stage = funding_stage
-        self.creation_date = creation_date
-        self.investors = investors
-        self.revenue = revenue
-        self.revenue_growth = revenue_growth
-        self.total_amount_raised = total_amount_raised
-        self.description = description
-        self.website = website
-        self.linkedin = linkedin
-        self.harmonic_id = harmonic_id
-        self.pdl_id = pdl_id
-        self.full_time_employees = full_time_employees
-        self.full_time_employees_growth = full_time_employees_growth
-
+from models import Company, People
 
 ## team sera un json data
 ## refaire le teams pour ameliorer la recherche
@@ -56,8 +16,13 @@ settings = {
     "revenue": "1000000",
 }
 
+def filter_company(company: Company, team: List[People]):
+    # list the filters
+    # make it pass through tme
+    return [applied filted]
 
-def filterOneCompany(company: Company, settings: dict):
+
+def apply_one_filter(company: Company, settings: dict):
     if "country" in settings and len(settings["country"]) > 0:
         valid_values = [v.lower() for v in settings["country"]]
         country = company.country.lower()
