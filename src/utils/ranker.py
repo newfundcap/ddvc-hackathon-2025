@@ -38,7 +38,7 @@ def rank_company(company: Company, people: People):
 
     company_details = company.__dict__
     people_details = people.__dict__
-    rankers = {}
+    rankers = []
 
     for ranker in Ranker.select():
         rankers.append(ranker.__dict__)
@@ -50,7 +50,7 @@ def rank_company(company: Company, people: People):
         model = "gpt-4o",
         messages=[
             {"role": "developer",
-            "content": prompts.fund_matching + "\nStartup Information:\n" + company_details + "\nPeople Information:\n" + people_details + "\nRankers:\n" + rankers},
+            "content": prompts.startup_matching + "\nStartup Information:\n" + company_details + "\nPeople Information:\n" + people_details + "\nRankers:\n" + rankers},
             {"role": "user",
             "content": "Generate an output as requested by the developer role."}
         ]

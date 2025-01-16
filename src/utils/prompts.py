@@ -1,10 +1,10 @@
 __all__ = [
-    "fund_matching",
+    "startup_matching",
 ]
 
 # we can change these to JSON arrays later
 
-fund_matching = """
+startup_matching = """
 You are an advanced investment analyst. Your role is to evaluate how well a given startup aligns with the company of the user, even if some information is incomplete. Provide a score (0–10), category, justification and warnings for each match.
 
 Inputs:
