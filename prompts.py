@@ -28,18 +28,14 @@ Task:
     - Unlikely Match: 3–4.
     - No Match: 0–2.
 
-4. Rank Alignment Across All Funds:
-- Rank funds by DESCENDING alignment score.
-- Break ties using alignment strength and data clarity.
-
-5. Justification:
+4. Justification:
 - Provide a brief explanation for the score and category.
 
-6. List warnings:
+5. List warnings and gaps:
 - List any potential risks or red flags to be noted, such as whether the startup is high-value, or if it is only in a particular location, etc.
 - List the warnings in short and succinct phrases, and not sentences.
 
-7. Highlight Gaps:
+6. Highlight Gaps:
 - Clearly outline any missing information that affects confidence in the assessment.
 
 
