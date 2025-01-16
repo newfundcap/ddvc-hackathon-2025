@@ -44,14 +44,15 @@ def enrich(people: People, company: Company):
     else:
         print("Error:", response)
 
-    person_table = []
-    experience_table = []
-    education_table = []
+   #person_table = []
+    #experience_table = []
+    #education_table = []
     person_data = data[0] if len(data) > 0 else None
     if person_data:
         people.update(
         person_id=people.person_id or person_data["person_id"],
-        full_name=people.full_name or person_data["full_name"],
+        first_name=people.first_name or person_data["first_name"],
+        last_name=people.last_name or person_data["last_name"],
         sex=people.sex or person_data["sex"],
         linkedin_url=people.linkedin_url or person_data["linkedin_url"],
         facebook_url=people.facebook_url or person_data["facebook_url"],
