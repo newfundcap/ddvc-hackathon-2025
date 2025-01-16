@@ -12,7 +12,12 @@ router = APIRouter(
     prefix='/rankers',
     tags=['rankers']
 )
+# TODO implement the correct endpoint
 
+class RankerResponse(BaseModel):
+    id: int
+    name: str
+    description: str
 
 class RankerCompanyResponse(BaseModel):
     id: int
@@ -83,3 +88,19 @@ async def list_rankers() -> list[RankerResponse]:
         resp.append(ranker_response)
 
     return resp
+    
+@router.get("/")
+async def get_all_rankers() -> list[RankerResponse]:
+    rankers = Ranker.select()
+    
+    ranker_response_list = []
+    for ranker in rankers:
+        ranker_dict = model_to_dict(ranker)
+        ranker_response = RankerResponse(
+            id=ranker_dict['id'],
+            name=ranker_dict['name'],
+            description=ranker_dict['description']
+        )
+        ranker_response_list.append(ranker_response)
+    return ranker_response_list
+
