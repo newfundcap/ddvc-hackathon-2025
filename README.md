@@ -40,12 +40,24 @@ CREATE DATABASE "ddvc_sourcing" WITH OWNER "ddvc";
 yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
 ```
 
-#### Test Startups from Different Funding Stages in Health and Fintech
-##### Company Overview
+### Run the server
+```
+fastapi dev app.py
+```
 
----
+Docs will be available at http://127.0.0.1:8000/docs
 
-###### Pre-Seed & Seed Stage
+
+## Frontend
+```
+cd front/my-app
+
+npm i
+npm run dev
+```
+
+## Test Startups from Different Funding Stages in Health and Fintech
+### Pre-Seed & Seed Stage
 
 - **Company Name:** Attane Health  
   **Founders:** Elise Bates, David Klick, Emily Brown
@@ -104,7 +116,7 @@ yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
   
 ---
 
-###### Series A+
+### Series A+
 
 - **Company Name:** 9fin  
   **Founders:** Steven Hunter
@@ -149,12 +161,6 @@ yoyo apply --database=postgresql://ddvc:password@localhost:5432/ddvc_sourcing
   **Website:** https://fincom.co/
   
 
-### Run the server
-```
-fastapi dev app.py
-```
-
-Docs will be available at http://127.0.0.1:8000/docs
 
 ## Documentation
 
