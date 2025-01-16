@@ -46,11 +46,10 @@ async def get_all_rankers() -> list[RankerResponse]:
     
     ranker_response_list = []
     for ranker in rankers:
-        ranker_dict = model_to_dict(ranker)
         ranker_response = RankerResponse(
-            id=ranker_dict['id'],
-            name=ranker_dict['name'],
-            description=ranker_dict['description']
+            id=ranker.id,
+            name=ranker.name,
+            description=ranker.description
         )
         ranker_response_list.append(ranker_response)
     return ranker_response_list
