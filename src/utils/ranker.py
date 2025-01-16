@@ -56,8 +56,6 @@ def rank_company(company: Company, people: People):
         ]
     )
 
-    generate_file("match-info.json", completion.choices[0].message.content.strip())
-
     print(completion.choices[0].message.content.strip())
 
     startup_match_info = completion.choices[0].message.content.strip()
@@ -67,10 +65,6 @@ def rank_company(company: Company, people: People):
     ranker_company.category = startup_match_info.get("category")
 
     ranker_company.save()
-
-    prompt_tokens = completion.usage.prompt_tokens
-    completion_tokens = completion.usage.completion_tokens
-
 
 
 def openai_api_calculate_cost(usage, model: str) -> float:
