@@ -16,13 +16,8 @@ settings = {
     "revenue": "1000000",
 }
 
-def filter_company(company: Company, team: List[People]):
-    # list the filters
-    # make it pass through tme
-    return [applied filted]
 
-
-def apply_one_filter(company: Company, settings: dict):
+def apply_filters(company: Company, settings: dict, team: List[People]):
     if "country" in settings and len(settings["country"]) > 0:
         valid_values = [v.lower() for v in settings["country"]]
         country = company.country.lower()
@@ -50,20 +45,15 @@ def apply_one_filter(company: Company, settings: dict):
             return False
 
     if "team_size" in settings and len(settings["team_size"]) > 0:
-        team = len(company.team)
-        if team < int(settings["team_size"]):
+        if len(team) < int(settings["team_size"]):
             return False
 
     if "total_amount_raised" in settings:
-        total_amount_raised = settings["total_amount_raised"]
-        total_amount_raised = company.total_amount_raised
-        if int(total_amount_raised) < int(settings["total_amount_raised"]):
+        if float(company.total_amount_raised) < float(settings["total_amount_raised"]):
             return False
 
     if "revenue" in settings:
-        revenue = settings["revenue"]
-        revenue = company.revenue
-        if int(revenue) < int(settings["revenue"]):
+        if int(company.revenue) < int(settings["revenue"]):
             return False
 
     return True
@@ -99,9 +89,7 @@ def main():
         "0.1",
     )
 
-    res = filterOneCompany(company, settings)
-
-    print(res)
+    
 
     print("Hello from filter.py")
 
