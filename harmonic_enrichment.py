@@ -82,7 +82,7 @@ def enrich(company: Company) -> Tuple[Company, List[People]]:
 
             # Créer les employés et les relations avec l'entreprise
             for person_data in team_data:
-                if person_data.get("firstName") and person_data.get("lastName"):
+                if person_data is not None and person_data.get("firstName") and person_data.get("lastName"):
                     xp = person_data.get("experience")
                     title = xp[0].get("title") if len(xp) > 0 else None
                     people = People.create(
