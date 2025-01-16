@@ -17,6 +17,7 @@ def enrich(company: Company):
                 id
                 name
                 entityUrn
+                logoUrl
                 website { url }
                 socials { linkedin { url } }
                 contact { phoneNumbers emails }
@@ -54,20 +55,18 @@ def enrich(company: Company):
 
     company_data = response.json()["data"]["enrichCompanyByIdentifiers"]["company"]
 
-    company = {
-        "name": company_data.get("name"),
-        "country": company_data.get("location", {}).get("country"),
-        "sector": company_data.get("sector"),
-        "contact": company_data.get("contact", {}).get("emails"),
-        "funding_stage": company_data.get("funding", {}).get("fundingStage"),
-        "creation_date": company_data.get("fundingDate"),
-        "total_amount_raised": company_data.get("funding", {}).get("fundingTotal"),
-        "description": company_data.get("description"),
-        "website": company_data.get("website", {}).get("url"),
-        "linkedin": company_data.get("socials", {}).get("linkedin", {}).get("url"),
-        "harmonic_id": company_data.get("id"),
-        "full_time_employees": len(company_data.get("employees", []))
-    }
+    company.name = company_data.get("name")
+    company.country = company_data.get("location", {}).get("country")
+    company.sector = company_data.get("tagsV2")
+    company.contact = company_data.get("contact", {}).get("emails")
+    company.funding_stage = company_data.get("funding", {}).get("fundingStage")
+    company.creation_date = company_data.get("fundingDate")
+    company.total_amount_raised = company_data.get("funding", {}).get("fundingTotal")
+    company.description = company_data.get("description")
+    company.website = company_data.get("website", {}).get("url")
+    company.linkedin = company_data.get("socials", {}).get("linkedin", {}).get("url")
+    company.full_time_employees = len(company_data.get("employees", []))
+    company.save()
 
     # Préparer les données de l'équipe
     team_data = company_data.get("employees", [])
@@ -75,7 +74,6 @@ def enrich(company: Company):
     # Créer les employés et les relations avec l'entreprise
     team = []
     for people in team_data:
-        # Vérifiez les données nécessaires pour éviter des erreurs
         first_name = person_data.get("firstName")
         last_name = person_data.get("lastName")
         people = People.create(

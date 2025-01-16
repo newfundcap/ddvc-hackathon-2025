@@ -53,6 +53,7 @@ class People(BaseModel):
     first_name = CharField()
     last_name = CharField()
     education = CharField()
+    logoUrl = CharField()
     past_companies = BinaryJSONField(default='{}')
     linkedin = CharField()
     github = CharField()
