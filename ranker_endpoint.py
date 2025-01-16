@@ -9,7 +9,7 @@ router = APIRouter(
     prefix='/rankers',
     tags=['rankers']
 )
-# TODO implement the correct endpoint
+
 
 @router.post("/")
 async def create_ranker(ranker_data: dict):
@@ -25,6 +25,6 @@ async def create_ranker(ranker_data: dict):
 async def delete_ranker(ranker_id: int):
     ranker_obj = Ranker.get_or_none(id=ranker_id)
     if not ranker_obj:
-        raise HTTPException(status_code=404, detail="Filter not found")
+        raise HTTPException(status_code=404, detail="Ranker not found")
     ranker_obj.delete_instance()
-    return {"detail": "Filter deleted"}
+    return {"detail": "Ranker deleted"}
