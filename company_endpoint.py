@@ -1,13 +1,13 @@
 from http.client import HTTPException
 from typing import Optional, Any, Dict, List
 
-from fastapi import APIRouter, BackgroundTasks
+from fastapi import APIRouter, BackgroundTasks, Query
 from peewee import prefetch
 from playhouse.shortcuts import model_to_dict
 
 import processing
 
-from models import Company, FilterCompany, RankerCompany
+from models import Company, FilterCompany, RankerCompany, Ranker
 from pydantic import BaseModel
 
 router = APIRouter(
@@ -109,9 +109,13 @@ async def create_company(req: CreateCompanyRequest, background_tasks: Background
 
 
 @router.get("/")
-async def list_companies() -> list[CompanyResponse]:
+async def list_companies(rankers: Optional[List[str]] = Query(default=None)) -> list[CompanyResponse]:
+    base_query = Company.select().order_by(Company.created_at.desc())
+    if rankers:
+        company_ids = list({r.company_id for r in RankerCompany.select(RankerCompany).join(Ranker).where(Ranker.name.in_(rankers))})
+        base_query = Company.select().order_by(Company.created_at.desc()).where(Company.id.in_(company_ids))
     companies = prefetch(
-        Company.select().order_by(Company.created_at.desc()),
+        base_query,
         RankerCompany.select(),
         FilterCompany.select(),
     )
