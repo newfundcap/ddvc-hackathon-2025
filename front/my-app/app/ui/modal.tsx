@@ -116,35 +116,50 @@ export default function Modal({ onClose, company }) {
               {company.description}
             </p>
           </div>
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Scores</h2>
-            <p className="text-gray-700">
+          <div className="mt-5">
+            <div className="flex items-center space-x-3 mb-3">
+              <FileText className="w-5 h-5 text-blue-500"/>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Scores
+              </h2>
+            </div>
+            <div className="text-gray-700">
               <ul>
                 {company.rankers.map((elem, index) => {
-                  return <li key={elem.name}>{elem.name}: {elem.score}</li>;
+                  return <li key={elem.name}>{elem.name}: {elem.score} ({elem.category})</li>;
                 })}
               </ul>
-            </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Warnings</h2>
-            <p className="text-gray-700">
+          <div className="mt-5">
+            <div className="flex items-center space-x-3 mb-3">
+              <FileText className="w-5 h-5 text-blue-500"/>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Warnings
+              </h2>
+            </div>
+            <div className="text-gray-700">
               <ul>
                 {company.filters.map((elem, index) => {
                   return <li key={elem.name}>{elem.name}</li>;
                 })}
               </ul>
-            </p>
+            </div>
           </div>
-          <div>
-            <h2 className="text-lg font-semibold text-gray-900 mb-3">Team</h2>
-            <p className="text-gray-700">
+          <div className="mt-5">
+            <div className="flex items-center space-x-3 mb-3">
+              <FileText className="w-5 h-5 text-blue-500"/>
+              <h2 className="text-lg font-semibold text-gray-900">
+                Team
+              </h2>
+            </div>
+            <div className="text-gray-700">
               <ul>
                 {company.team.map((elem, index) => {
                   return <li key={index}>{elem.first_name} {elem.last_name}</li>;
                 })}
               </ul>
-            </p>
+            </div>
           </div>
         </div>
 
