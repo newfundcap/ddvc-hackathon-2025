@@ -16,20 +16,25 @@ def parse_date(date_str: str):
 
 
 def store_in_db(people: People, person_data: dict):
-    people.pdl_id = people.pdl_id or person_data.get("id")
-    people.sex = people.sex or person_data.get("sex")
-    people.linkedin = people.linkedin or person_data.get("linkedin_url")
-    people.twitter_url = people.twitter_url or person_data.get("twitter_url")
-    people.github = people.github or person_data.get("github_url")
-    people.work_email = people.work_email or person_data.get("work_email")
-    people.personal_emails = people.personal_emails or person_data.get("personal_emails")
-    people.industry = people.industry or person_data.get("industry")
-    people.job_title = people.job_title or person_data.get("job_title")
-    people.location_country = people.location_country or person_data.get("location_country")
-    people.linkedin_connections = people.linkedin_connections or person_data.get("linkedin_connections")
-    people.inferred_years_experience = people.inferred_years_experience or person_data.get("inferred_years_experience")
-    people.summary = people.summary or person_data.get("summary")
-    people.interests = people.interests or person_data.get("interests")
+    people.pdl_id = person_data.get("id") if not people.pdl_id else people.pdl_id
+
+    people.sex = person_data.get("sex") if not people.sex else people.sex
+    people.linkedin = person_data.get("linkedin_url") if not people.linkedin else people.linkedin
+    people.twitter_url = person_data.get("twitter_url") if not people.twitter_url else people.twitter_url
+    people.github = person_data.get("github_url") if not people.github else people.github
+    people.work_email = person_data.get("work_email") if not people.work_email else people.work_email
+    people.personal_emails = person_data.get(
+        "personal_emails") if not people.personal_emails else people.personal_emails
+    people.industry = person_data.get("industry") if not people.industry else people.industry
+    people.job_title = person_data.get("job_title") if not people.job_title else people.job_title
+    people.location_country = person_data.get(
+        "location_country") if not people.location_country else people.location_country
+    people.linkedin_connections = person_data.get(
+        "linkedin_connections") if not people.linkedin_connections else people.linkedin_connections
+    people.inferred_years_experience = person_data.get(
+        "inferred_years_experience") if not people.inferred_years_experience else people.inferred_years_experience
+    people.summary = person_data.get("summary") if not people.summary else people.summary
+    people.interests = person_data.get("interests") if not people.interests else people.interests
     people.save()
 
     # Add experience data using provided ID
