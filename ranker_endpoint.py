@@ -12,7 +12,7 @@ router = APIRouter(
 # TODO implement the correct endpoint
 
 @router.post("/")
-async def create_filter(ranker_data: dict):
+async def create_ranker(ranker_data: dict):
     # TODO implement the correct endpoint
     try:
         ranker_obj = Ranker.create(**ranker_data)
