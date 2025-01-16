@@ -16,19 +16,19 @@ def parse_date(date_str: str):
 
 
 def store_in_db(people: People, person_data: dict):
-    people.pdl_id = people.pdl_id or person_data.get("person_id"),
-    people.sex = people.sex or person_data.get("sex"),
-    people.linkedin = people.linkedin or person_data.get("linkedin_url"),
-    people.twitter_url = people.twitter_url or person_data.get("twitter_url"),
-    people.github = people.github or person_data.get("github_url"),
-    people.work_email = people.work_email or person_data.get("work_email"),
-    people.personal_emails = people.personal_emails or person_data.get("personal_emails"),
-    people.industry = people.industry or person_data.get("industry"),
-    people.job_title = people.job_title or person_data.get("job_title"),
-    people.location_country = people.location_country or person_data.get("location_country"),
-    people.linkedin_connections = people.linkedin_connections or person_data.get("linkedin_connections"),
-    people.inferred_years_experience = people.inferred_years_experience or person_data.get("inferred_years_experience"),
-    people.summary = people.summary or person_data.get("summary"),
+    people.pdl_id = people.pdl_id or person_data.get("person_id")
+    people.sex = people.sex or person_data.get("sex")
+    people.linkedin = people.linkedin or person_data.get("linkedin_url")
+    people.twitter_url = people.twitter_url or person_data.get("twitter_url")
+    people.github = people.github or person_data.get("github_url")
+    people.work_email = people.work_email or person_data.get("work_email")
+    people.personal_emails = people.personal_emails or person_data.get("personal_emails")
+    people.industry = people.industry or person_data.get("industry")
+    people.job_title = people.job_title or person_data.get("job_title")
+    people.location_country = people.location_country or person_data.get("location_country")
+    people.linkedin_connections = people.linkedin_connections or person_data.get("linkedin_connections")
+    people.inferred_years_experience = people.inferred_years_experience or person_data.get("inferred_years_experience")
+    people.summary = people.summary or person_data.get("summary")
     people.interests = people.interests or person_data.get("interests")
     people.save()
 
