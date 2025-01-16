@@ -41,16 +41,16 @@ async def delete_ranker(ranker_id: int):
 
     
 @router.get("/")
-async def get_all_rankers() -> list[RankerResponse]:
+async def get_all_rankers() -> list[str]:
     rankers = Ranker.select()
     
-    ranker_response_list = []
-    for ranker in rankers:
-        ranker_response = RankerResponse(
-            id=ranker.id,
-            name=ranker.name,
-            description=ranker.description
-        )
-        ranker_response_list.append(ranker_response)
+    ranker_response_list = [ranker.name for ranker in rankers]
+    # for ranker in rankers:
+    #     ranker_response = RankerResponse(
+    #         id=ranker.id,
+    #         name=ranker.name,
+    #         description=ranker.description
+    #     )
+    #     ranker_response_list.append(ranker_response)
     return ranker_response_list
 
