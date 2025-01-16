@@ -2,11 +2,12 @@ from http.client import HTTPException
 from typing import Optional, Any, Dict, List
 
 from fastapi import APIRouter, BackgroundTasks
+from peewee import prefetch
 from playhouse.shortcuts import model_to_dict
 
 import processing
 
-from models import Company, FilterCompany
+from models import Company, FilterCompany, RankerCompany
 from pydantic import BaseModel
 
 router = APIRouter(
@@ -46,6 +47,7 @@ class RankerCompanyResponse(BaseModel):
     category: str
     justification: str
     warnings: str
+
 
 class FilterCompanyResponse(BaseModel):
     id: int
@@ -107,12 +109,11 @@ async def create_company(req: CreateCompanyRequest, background_tasks: Background
 
 @router.get("/")
 async def list_companies() -> list[CompanyResponse]:
-    companies = Company.select().order_by(Company.created_at.desc())
-
-    # query = query.join(RankerCompany).where(RankerCompany.score == ranker_score)
-    # if sort_by:
-    #     query = query.order_by(getattr(Company, sort_by))
-
+    companies = prefetch(
+        Company.select().order_by(Company.created_at.desc()),
+        RankerCompany.select(),
+        FilterCompany.select(),
+    )
     resp = []
     for company in companies:
         company_response = CompanyResponse(
@@ -139,17 +140,22 @@ async def list_companies() -> list[CompanyResponse]:
             full_time_employees_growth=company.full_time_employees_growth,
 
             team=[PeopleResponse(**model_to_dict(person.people)) for person in company.employees],
-            rankers=[],  # Assuming rankers data to populate here
-            filters=[],  # Assuming rankers data to populate here
+            rankers=[
+                RankerCompanyResponse(
+                    id=r_c.ranker.id,
+                    name=r_c.ranker.name,
+                    description=r_c.ranker.description,
+                    score=r_c.score,
+                    category=r_c.category,
+                    justification=r_c.justification,
+                    warnings=r_c.warnings,
+                ) for r_c in company.rankers
+            ],  # Assuming rankers data to populate here
+            filters=[
+                FilterCompanyResponse(id=f_c.filter.id, name=f_c.filter.name)
+                for f_c in company.filters
+            ],  # Assuming rankers data to populate here
         )
-        # company_details = model_to_dict(company)
-        # team = [people.people for people in company.employees]
-        # people_details = [model_to_dict(t) for t in team]
-        # rankers_results = []
-        # filters = []
-        # company_details['team'] = people_details
-        # company_details['rankers'] = rankers_results
-        # company_details['filters'] = filters
 
         resp.append(company_response)
 
