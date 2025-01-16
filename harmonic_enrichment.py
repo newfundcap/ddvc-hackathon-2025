@@ -43,7 +43,7 @@ def enrich(company: Company):
     """
     headers = {
         "Content-Type": "application/json",
-        "apikey": f"{os.getenv("HARMONIC_KEY")}"
+        "apikey": config.harmonic_api_key
     }
 
     variables = {"identifiers": {"websiteUrl": f"{company.website}" }}
