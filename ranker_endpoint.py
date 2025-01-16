@@ -7,6 +7,7 @@ from playhouse.shortcuts import model_to_dict
 
 from models import Ranker, RankerCompany
 from pydantic import BaseModel
+import processing
 
 router = APIRouter(
     prefix='/rankers',
@@ -20,12 +21,23 @@ class RankerResponse(BaseModel):
     description: str
 
 
+class CreateRankerRequest(BaseModel):
+    name: str
+    description: str
 
 @router.post("/")
-async def create_ranker(ranker_data: dict):
-    # TODO implement the correct endpoint
+async def create_ranker(req: CreateRankerRequest, background_tasks: BackgroundTasks):
+    if (req.description is None) or (req.name is None):
+        raise HTTPException(status_code=400, detail="Require name or description")
+    existing = Ranker.get_or_none(name=req.name)
+    if existing:
+        raise HTTPException(status_code=409, detail="Ranker already exists")
     try:
-        ranker_obj = Ranker.create(**ranker_data)
+        ranker_obj = Ranker.create(
+            name=req.name,
+            description=req.description
+        )
+        background_tasks.add_task(processing.apply_rankers, ranker_obj)
         return model_to_dict(ranker_obj)
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
